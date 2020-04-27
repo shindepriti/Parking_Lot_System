@@ -2,6 +2,9 @@ class ParkingLot{
 
     park=(vehicle)=>{
         return true
+    }
+
+    unPark=(vehicle)=>{
 
     }
 }
