@@ -9,7 +9,8 @@ class ParkingLot{
         if(this.parkVehicle == vehicle){
             return true;
         }
-        return false;      
+        throw new error("Vehicle Not Present");
+            
     }
 }
 module.exports = ParkingLot;
