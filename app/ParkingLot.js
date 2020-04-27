@@ -9,10 +9,7 @@ class ParkingLot{
         if(this.parkVehicle == vehicle){
             return true;
         }
-        return false;
-            
-    
-        
+        return false;      
     }
 }
 module.exports = ParkingLot;

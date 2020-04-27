@@ -22,4 +22,16 @@ describe(`Parking Lot System`,function(){
         let unPark = parkingLotObj.unPark(vehicle);
         assert.isTrue(unPark);
     })
+
+    it(`givenVehicle_WhenAllReadyUnparked_ShouldThrowException`,function(){
+        try {
+            let vehicle = new Object();
+             parkingLotObj.park(vehicle);
+             parkingLotObj.unPark(vehicle);
+             parkingLotObj.unPark(vehicle);
+        } catch (error) {
+            assert.equal(error.message,"Vehicle Not Present")
+        }
+    })
+
 })
