@@ -1,6 +1,7 @@
 class ParkingLot{
 
-    park(){
+    park=(vehicle)=>{
+        return true
 
     }
 }
