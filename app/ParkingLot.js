@@ -1,4 +1,7 @@
 class ParkingLot{
+    constructor(){
+        this.parkingLotCapacity = []
+    }
 
     park=(vehicle)=>{
         this.parkVehicle = vehicle
@@ -8,9 +11,8 @@ class ParkingLot{
     unPark=(vehicle)=>{
         if(this.parkVehicle == vehicle){
             return true;
-        }
-        throw new error("Vehicle Not Present");
-            
+        } 
+        throw new Error("Vehicle Not Present")     
     }
 }
 module.exports = ParkingLot;
