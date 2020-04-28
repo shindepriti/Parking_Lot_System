@@ -1,10 +1,16 @@
+var parkingLotOwner = require("../app/ParkingLotOwner")
+
+const parkingLotMaximumCapacity = 4
+var parkingLotCapacity = 0;
 class ParkingLot{
-    constructor(){
-        this.parkingLotCapacity = []
-    }
 
     park=(vehicle)=>{
+        if(this.parkingLotCapacity == parkingLotMaximumCapacity){
+            parkingLotOwner.isFull()
+            throw new Error("Parking Lot Is Full")
+        }
         this.parkVehicle = vehicle
+        parkingLotCapacity++;
         return true;
     }
 
