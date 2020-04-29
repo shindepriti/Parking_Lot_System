@@ -27,6 +27,7 @@ class ParkingLot{
         for(let car = 0;car < this.parkingLotCapacity.length;car++){
             if(this.parkingLotCapacity[car] == vehicle){
                 delete this.parkingLotCapacity[car]
+                parkingLotOwner.spaceAvailable();
                 return true;
             }
         }
