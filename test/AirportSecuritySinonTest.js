@@ -2,22 +2,20 @@ assert=require('chai').assert;
 sinon=require('sinon');
 
 var parkingLot = require('../app/ParkingLot')
-var parkingLotOwner = require('../app/ParkingLotOwner')
-
-
-describe(`Sinon Testing `,function(){
+var airportSecurity = require("../app/AirportSecurity")
+describe(`Airport Security Sinon Testing `,function(){
     
     beforeEach(function(){
         parkingLotObj = new parkingLot();
-        sinon.stub(parkingLotOwner,'isFull');
+        sinon.stub(airportSecurity,'isFull');
     })
 
     afterEach(function(){
-        parkingLotOwner.isFull.restore();
+        airportSecurity.isFull.restore();
     })
 
-    //UC3-Parking Owner Should Know Parking Full Or Not
-    it(`givenParkingLotFull_ShouldThrowExceptionNotyifyToOwner`,function(){
+    //UC4-Security Notify Parking Full
+    it(`givenParkingLotFull_notifyToAirportSecurity_ShouldThrowException`,function(){
         try {
             let car = new Object();
             let car1 = new Object();
@@ -33,5 +31,4 @@ describe(`Sinon Testing `,function(){
         }
     })
 
-
-})
+});

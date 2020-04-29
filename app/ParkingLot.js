@@ -1,5 +1,5 @@
 var parkingLotOwner = require("../app/ParkingLotOwner")
-
+var airportSecurity = require("../app/AirportSecurity")
 const parkingLotMaximumCapacity = 4
 
 class ParkingLot{
@@ -9,7 +9,8 @@ class ParkingLot{
     
     park=(vehicle)=>{
         if(this.parkingLotCapacity.length == parkingLotMaximumCapacity){
-            parkingLotOwner.isFull()
+            parkingLotOwner.isFull();
+            airportSecurity.isFull();
             throw new Error("Parking Lot Is Full")
         }
         this.parkingLotCapacity.push(vehicle)
