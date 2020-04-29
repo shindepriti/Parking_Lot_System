@@ -8,13 +8,13 @@ describe(`Parking Lot System`,function(){
     })
     
     //UC1-Test case to check car is park
-    it(`givenVehicle_whenPark_shouldReturnTrue`,function(){
-        let vehicle = new Object();
+    it(`givenVehicle_whenPark_shouldReturnTrue`,()=>{
+        let vehicle = {};
         let park = parkingLotObj.park(vehicle);
         assert.isTrue(park);
     })
 
-    it(`givenVehicle_WhenNullPark_ShouldThrowException`,function(){
+    it(`givenVehicle_WhenNullPark_ShouldThrowException`,()=>{
         try {
             parkingLotObj.park();  
         } catch (error) {
@@ -23,16 +23,16 @@ describe(`Parking Lot System`,function(){
     })
     
      //UC2-Test case To check Car is Unpark
-     it(`givenVehicle_whenUnParked_shouldReturnTrue`,function(){
-        let vehicle = new Object();
+     it(`givenVehicle_whenUnParked_shouldReturnTrue`,()=>{
+        let vehicle = {};
         parkingLotObj.park(vehicle);
         let unPark = parkingLotObj.unPark(vehicle);
         assert.isTrue(unPark);
     })
 
-    it(`givenVehicle_WhenAllReadyUnparked_ShouldThrowException`,function(){
+    it(`givenVehicle_WhenAllReadyUnparked_ShouldThrowException`,()=>{
         try {
-            let vehicle = new Object();
+            let vehicle = {};
              parkingLotObj.park(vehicle);
              parkingLotObj.unPark(vehicle);
              parkingLotObj.unPark(vehicle);
@@ -41,31 +41,14 @@ describe(`Parking Lot System`,function(){
         }
     })
 
-    it(`givenVehicle_WhenNullUnPark_ShouldThrowException`,function(){
+    it(`givenVehicle_WhenNullUnPark_ShouldThrowException`,()=>{
         try {
-            let vehicle = new Object();
+            let vehicle = {};
             parkingLotObj.park(vehicle)
             parkingLotObj.unPark();  
         } catch (error) {
             assert.equal(error.message,"Vehicle Is Not Null Or Undefined")  
         }
     })
-    
-    //UC3-Parking Owner Should Know Parking Full Or Not
-    it(`givenParkingLotFull_ShouldThrowExceptionNotyifyToOwner`,function(){
-        try {
-            let car = new Object();
-            let car1 = new Object();
-            let car2 = new Object();
-            let car3 = new Object();
-            parkingLotObj.park(car);
-            parkingLotObj.park(car1);
-            parkingLotObj.park(car2);
-            parkingLotObj.park(car3);  
-        } catch (error) {
-            assert.equal(error.message,"Parking Lot Is Full");
 
-        }
-    })
-    
 })

@@ -1,10 +1,12 @@
 let parkingFull;
 class AirportSecurity{
     
+    constructor(){
+        this.parkingFull=false
+    }
+    
     isFull(){
-        parkingFull = true
-            console.log("Airport Security Notify :- Parking Lot Full");
-            callback.returns(parkingFull);
-        }
+       return this.parkingFull = true;
+    }
 }
 module.exports = new AirportSecurity

@@ -1,18 +1,17 @@
 let parkingFull ;
 class ParkingLotOwner{
+    
+    constructor(){
+        this.parkingFull= false
+    }
 
     isFull(){
-        parkingFull = true
-            console.log("Parking Lot Owner :- Parking Lot Full");
-            return parkingFull;
-        }
+        return this.parkingFull = true;    
+    }
 
     spaceAvailable(){
-        parkingFull = false
-            console.log("Parking Lot Owner :- Parking Lot Available");
-            return parkingFull;
-        
-        }
+        return "Parking Lot Space Available"
+    }
     
 }
 module.exports = new ParkingLotOwner;

@@ -7,7 +7,7 @@ class ParkingLotObserver{
         this.observerList = []
     }
     
-    addVehicle(){
+    addObject(){
         this.observerList.push(airportSecurity);
         this.observerList.push(parkingLotOwner);
     }

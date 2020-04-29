@@ -1,11 +1,13 @@
 assert=require('chai').assert;
 sinon=require('sinon');
 
+expect = require('chai').expect;
 var parkingLot = require('../app/ParkingLot')
 var parkingLotOwner = require('../app/ParkingLotOwner');
 describe(`Parking Lot Owner Sinon Testing `,function(){
-    
-    beforeEach(function(){
+
+    let parkingLotObj;
+        beforeEach(function(){
         parkingLotObj = new parkingLot();
         sinon.stub(parkingLotOwner,'isFull');
     })
@@ -15,32 +17,24 @@ describe(`Parking Lot Owner Sinon Testing `,function(){
     })
 
     //UC3-Parking Owner Should Know Parking Full Or Not
-    it(`givenParkingLotFull_ShouldThrowExceptionNotyifyToOwner`,function(){
+    it(`givenParkingLotFull_ShouldThrowExceptionNotyifyToOwner`,()=> {
         try {
-            let car = new Object();
-            let car1 = new Object();
-            let car2 = new Object();
-            let car3 = new Object();
-            parkingLotObj.park(car);
-            parkingLotObj.park(car1);
-            parkingLotObj.park(car2);
-            parkingLotObj.park(car3);  
+            let car = {};
+            let car1 = {};
+            expect(parkingLotObj.park(car)).to.be.equal(true);   
         } catch (error) {
-            assert.equal(error.message,"Parking Lot Is Full");
+            expect(parkingLotOwner.isFull()).to.be.equal(error.message,"Parking Lot Is Full");
+        }        
+    });
 
-        }
-    })
-
-     //UC5-Owner Notify Available Space
-     it(`givenParkingLotFull__whenSapceAvailableAgain__notifyOwner`, function() {
-        let car1 = new Object();
-        let car2 = new Object();
-        let car3 = new Object();
-        parkingLotObj.park(car1)
-        parkingLotObj.park(car2)
-        parkingLotObj.park(car3)
-        let result = parkingLotObj.unPark(car1);
-        assert.equal(result,true)
+    //  //UC5-Owner Notify Available Space
+    it(`givenParkingLotFull__whenSapceAvailableAgain__notifyOwner` , ()=> {
+        let car = {};
+        let car1 = {}
+        expect(parkingLotObj.park(car)).to.be.equal(true);
+        expect(parkingLotObj.park(car1)).to.be.equal(true);
+        expect(parkingLotObj.unPark(car)).to.be.equal(true);
+        expect(parkingLotOwner.spaceAvailable()).to.be.equal("Parking Lot Space Available");
     });
 
 })
