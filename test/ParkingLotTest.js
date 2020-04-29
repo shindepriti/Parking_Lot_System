@@ -51,4 +51,17 @@ describe(`Parking Lot System`,function(){
         }
     })
 
+    //UC6-Parked Vehicle At Particular position
+    it(`GivenVehicle__whenParkedAtParticularPosition__shouldReturnTrue`, () => {
+        let vehicle1 = {};
+        let vehicle2 = {};
+        let vehicle3 = {};
+        parkinglotObj.park(vehicle1)
+        parkinglotObj.park(vehicle2)
+        parkinglotObj.park(vehicle3)
+        parkinglotObj.unPark(vehicle1);
+        let checkEmptySlots = parkinglotObj.getEmptySlots();
+        assert.equal(checkEmptySlots, 0)
+    });
+
 })
