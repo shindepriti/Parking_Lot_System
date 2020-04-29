@@ -14,6 +14,13 @@ describe(`Parking Lot System`,function(){
         assert.isTrue(park);
     })
 
+    it(`givenVehicle_WhenNullPark_ShouldThrowException`,function(){
+        try {
+            parkingLotObj.park();  
+        } catch (error) {
+            assert.equal(error.message,"Vehicle Is Not Null Or Undefined")  
+        }
+    })
     
      //UC2-Test case To check Car is Unpark
      it(`givenVehicle_whenUnParked_shouldReturnTrue`,function(){
@@ -30,10 +37,20 @@ describe(`Parking Lot System`,function(){
              parkingLotObj.unPark(vehicle);
              parkingLotObj.unPark(vehicle);
         } catch (error) {
-            assert.equal(error.message,"Vehicle Not Present")
+            assert.equal(error.message,"Vehicle Already Unparked")
         }
     })
 
+    it(`givenVehicle_WhenNullUnPark_ShouldThrowException`,function(){
+        try {
+            let vehicle = new Object();
+            parkingLotObj.park(vehicle)
+            parkingLotObj.unPark();  
+        } catch (error) {
+            assert.equal(error.message,"Vehicle Is Not Null Or Undefined")  
+        }
+    })
+    
 
     //UC3-Parking Owner Should Know Parking Full Or Not
     it(`givenParkingLotFull_ShouldThrowExceptionNotyifyToOwner`,function(){

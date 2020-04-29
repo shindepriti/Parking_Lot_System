@@ -18,13 +18,14 @@ class ParkingLot{
     }
 
     unPark=(vehicle)=>{
+
         for(let car = 0;car < this.parkingLotCapacity.length;car++){
             if(this.parkingLotCapacity[car] == vehicle){
                 delete this.parkingLotCapacity[car]
                 return true;
             }
         }
-        throw new Error("Vehicle Not Present")     
+        throw new Error("Vehicle Already Unparked")     
     }
 }
 module.exports =  ParkingLot;
