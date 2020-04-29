@@ -55,13 +55,11 @@ describe(`Parking Lot System`,function(){
     it(`GivenVehicle__whenParkedAtParticularPosition__shouldReturnTrue`, () => {
         let vehicle1 = {};
         let vehicle2 = {};
-        let vehicle3 = {};
-        parkinglotObj.park(vehicle1)
-        parkinglotObj.park(vehicle2)
-        parkinglotObj.park(vehicle3)
-        parkinglotObj.unPark(vehicle1);
-        let checkEmptySlots = parkinglotObj.getEmptySlots();
-        assert.equal(checkEmptySlots, 0)
+        parkingLotObj.park(vehicle1)
+        parkingLotObj.park(vehicle2)
+        parkingLotObj.unPark(vehicle2);
+        let checkEmptySlots = parkingLotObj.getEmptySlots();
+        assert.equal(checkEmptySlots,1)
     });
 
 })

@@ -34,12 +34,20 @@ class ParkingLot{
         throw new Error("Vehicle Already Unparked")     
     }
 
-    parkingLotFull(){
+    parkingLotFull=()=>{
         if(this.parkingLotCapacity.length == parkingLotMaximumCapacity){
             parkingLotObserver.addObject();
             parkingLotObserver.getNotificationFull();        
             throw new Error("Parking Lot Is Full")
         }
+    }
+
+    getEmptySlots=()=>{
+        for(let i=0;i<this.parkingLotCapacity.length;i++){
+            if(this.parkingLotCapacity[i] == null )
+                return i;           
+        };
+        return false;
     }
 
 }
