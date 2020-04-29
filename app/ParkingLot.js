@@ -1,8 +1,9 @@
-var parkingLotOwner = require("../app/ParkingLotOwner")
-var airportSecurity = require("../app/AirportSecurity")
+var parkingLotObserver = require("../app/ParkingLotObserver")
+
 const parkingLotMaximumCapacity = 4
 
 class ParkingLot{
+
     constructor(){
         this.parkingLotCapacity = []
     }
@@ -12,8 +13,8 @@ class ParkingLot{
             throw new Error("Vehicle Is Not Null Or Undefined")
         }
         if(this.parkingLotCapacity.length == parkingLotMaximumCapacity){
-            parkingLotOwner.isFull()
-            airportSecurity.isFull()            
+            parkingLotObserver.addVehicle();
+            parkingLotObserver.getNotificationFull();        
             throw new Error("Parking Lot Is Full")
         }
         this.parkingLotCapacity.push(vehicle);
@@ -27,7 +28,8 @@ class ParkingLot{
         for(let car = 0;car < this.parkingLotCapacity.length;car++){
             if(this.parkingLotCapacity[car] == vehicle){
                 delete this.parkingLotCapacity[car]
-                parkingLotOwner.spaceAvailable();
+                parkingLotObserver.addVehicle();
+                parkingLotObserver.getNotificationEmpty();
                 return true;
             }
         }
