@@ -31,4 +31,16 @@ describe(`Parking Lot Owner Sinon Testing `,function(){
         }
     })
 
+     //UC5-Owner Notify Available Space
+     it(`givenParkingLotFull__whenSapceAvailableAgain__notifyOwner`, function() {
+        let car1 = new Object();
+        let car2 = new Object();
+        let car3 = new Object();
+        parkingLotObj.park(car1)
+        parkingLotObj.park(car2)
+        parkingLotObj.park(car3)
+        let result = parkingLotObj.unPark(car1);
+        assert.equal(result,true)
+    });
+
 })
