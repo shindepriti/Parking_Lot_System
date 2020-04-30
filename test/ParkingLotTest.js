@@ -84,4 +84,18 @@ describe(`Parking Lot System`,function(){
         assert.equal(getVehicle,1)
     })
 
+    it(`whenDrier_notFindCar_shouldReturnFalse`, () => {
+        let findcar = parkingLotObj.findMyCar();
+        assert.equal(findcar,false);
+    })
+
+    //UC8- Apply Charges to User
+    it(`givenVehicle_whenparkedApplyCharges_shouldReturnTrue` , () =>{
+        let vehicle1 = [new Object(0),new Date()];
+        let vehicle2 = [new Object(1),new Date()];
+        parkingLotObj.park(vehicle1);
+        let result =  parkingLotObj.park(vehicle2);
+        assert.equal(result,true);
+    })
+
 })

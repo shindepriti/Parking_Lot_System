@@ -43,17 +43,17 @@ class ParkingLot{
     }
 
     getEmptySlots=()=>{
-        for(let i=0;i<this.parkingLotCapacity.length;i++){
-            if(this.parkingLotCapacity[i] == null )
-                return i;           
+        for(let slot=0;slot<this.parkingLotCapacity.length;slot++){
+            if(this.parkingLotCapacity[slot] == null )
+                return slot;           
         };
         throw new Error("Parking Slot Is Not Empty")
     }
 
     findMyCar=(vehicle)=>{
-        for(let i=0;i<this.parkingLotCapacity.length;i++){
-           if(this.parkingLotCapacity[i] == vehicle)
-                return i
+        for(let slot=0;slot<this.parkingLotCapacity.length;slot++){
+           if(this.parkingLotCapacity[slot] == vehicle)
+                return slot;
            
        }; 
        return false;
