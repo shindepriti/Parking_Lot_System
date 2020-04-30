@@ -25,7 +25,7 @@ class ParkingLot{
         }
         for(let car = 0;car < this.parkingLotCapacity.length;car++){
             if(this.parkingLotCapacity[car] == vehicle){
-                delete this.parkingLotCapacity[car]
+                this.parkingLotCapacity.splice(car,1,null)
                 parkingLotObserver.addObject();
                 parkingLotObserver.getNotificationEmpty();
                 return true;
