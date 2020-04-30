@@ -74,4 +74,14 @@ describe(`Parking Lot System`,function(){
         }
     })
 
+    //UC7-Driver Find car
+    it(`driver_whenFindVehicle_shouldReturnTrue`, () =>{
+        let vehicle1 = {};
+        let vehicle2 = {};
+        parkingLotObj.park(vehicle1)
+        parkingLotObj.park(vehicle2)
+        let getVehicle = parkingLotObj.findMyCar(vehicle1);
+        assert.equal(getVehicle,0)
+    })
+
 })

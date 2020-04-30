@@ -50,5 +50,9 @@ class ParkingLot{
         throw new Error("Parking Slot Is Not Empty")
     }
 
+    findMyCar=(vehicle)=>{
+
+    }
+
 }
 module.exports =  ParkingLot;
