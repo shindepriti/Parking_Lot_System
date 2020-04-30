@@ -98,4 +98,13 @@ describe(`Parking Lot System`,function(){
         assert.equal(result,true);
     })
 
-})
+    //UC9
+    it(`givenVehicle_whenParkEvenly_shouldReturnTrue`,() =>{
+        let car = [[new Object(0),new Date()],[new Object(1),new Date()],[new Object(2),new Date()],[new Object(3),new Date()],[new Object(4),new Date()],[new Object(5),new Date()],[new Object(6),new Date()]]
+        car.map(car => {
+           result =  parkingLotObj.park(car);
+        })
+        assert.equal(result,true)
+    })
+
+})  
