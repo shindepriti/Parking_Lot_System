@@ -51,6 +51,12 @@ class ParkingLot{
     }
 
     findMyCar=(vehicle)=>{
+        for(let i=0;i<this.parkingLotCapacity.length;i++){
+           if(this.parkingLotCapacity[i] == vehicle)
+                return i
+           
+       }; 
+       return false;
 
     }
 

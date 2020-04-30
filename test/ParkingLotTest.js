@@ -80,8 +80,8 @@ describe(`Parking Lot System`,function(){
         let vehicle2 = {};
         parkingLotObj.park(vehicle1)
         parkingLotObj.park(vehicle2)
-        let getVehicle = parkingLotObj.findMyCar(vehicle1);
-        assert.equal(getVehicle,0)
+        let getVehicle = parkingLotObj.findMyCar(vehicle2);
+        assert.equal(getVehicle,1)
     })
 
 })
