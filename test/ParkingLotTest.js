@@ -84,4 +84,9 @@ describe(`Parking Lot System`,function(){
         assert.equal(getVehicle,1)
     })
 
+    it(`whenDrier_notFindCar_shouldReturnFalse`, () => {
+        let findcar = parkingLotObj.findMyCar();
+        assert.equal(findcar,false);
+    })
+
 })
