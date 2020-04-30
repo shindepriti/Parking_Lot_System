@@ -9,11 +9,17 @@ class ParkingLot{
     }
     
     park=(vehicle)=>{
-        if (vehicle == null || vehicle == undefined) {
-            throw new Error("Vehicle Is Not Null Or Undefined")
+        if (vehicle == null) {
+            throw new Error("Vehicle Is Not Null")
         }
         if(this.parkingLotFull()){
             return false;
+        }
+        for(let car = 0; car < this.parkingLotCapacity.length;car++){
+            if(this.parkingLotCapacity[car] == undefined){
+                this.parkingLotCapacity.fill(vehicle,car,car+1)
+                return true;
+            }
         }
         this.parkingLotCapacity.push(vehicle);
         return true
