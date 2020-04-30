@@ -1,4 +1,5 @@
 const assert = require('chai').assert;
+expect = require('chai').expect;
 const parkingLot = require("../app/ParkingLot")
 describe(`Parking Lot System`,function(){
     
@@ -52,7 +53,7 @@ describe(`Parking Lot System`,function(){
     })
 
     //UC6-Parked Vehicle At Particular position
-    it(`GivenVehicle__whenParkedAtParticularPosition__shouldReturnTrue`, () => {
+    it(`givenVehicle__whenParkedAtParticularPosition__shouldReturnTrue`, () => {
         let vehicle1 = {};
         let vehicle2 = {};
         parkingLotObj.park(vehicle1)
@@ -61,5 +62,16 @@ describe(`Parking Lot System`,function(){
         let checkEmptySlots = parkingLotObj.getEmptySlots();
         assert.equal(checkEmptySlots,1)
     });
+
+    it(`givenVehicle_whenSlotNotEmpty_shouldReturnException`,() =>{
+        try {
+            let vehicle1 = {};
+            let vehicle2 = {};
+            parkingLotObj.park(vehicle1)
+            parkingLotObj.park(vehicle2)
+        } catch (error) {
+            expect(parkingLotObj.getEmptySlots()).to.be.equal(error.message,"Parking Slot Is Not Empty");
+        }
+    })
 
 })

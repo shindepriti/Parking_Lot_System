@@ -1,5 +1,5 @@
 var parkingLotObserver = require("../app/ParkingLotObserver")
-var parkingLotOwner = require("../app/ParkingLotOwner")
+
 const parkingLotMaximumCapacity = 2
 
 class ParkingLot{
@@ -47,7 +47,7 @@ class ParkingLot{
             if(this.parkingLotCapacity[i] == null )
                 return i;           
         };
-        return false;
+        throw new Error("Parking Slot Is Not Empty")
     }
 
 }

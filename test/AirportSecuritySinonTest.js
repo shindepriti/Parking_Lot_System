@@ -20,7 +20,8 @@ describe(`Airport Security Sinon Testing `,function(){
         try {
             let car = new Object();
             let car1 = new Object();
-            expect(parkingLotObj.park(car)).to.be.equal(true);   
+            expect(parkingLotObj.park(car)).to.be.equal(true); 
+            expect(parkingLotObj.park(car1)).to.be.equal(true);
         } catch (error) {
             expect(airportSecurity.isFull()).to.be.equal(error.message,"Parking Lot Is Full");
         }        
