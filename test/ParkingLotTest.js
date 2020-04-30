@@ -19,7 +19,7 @@ describe(`Parking Lot System`,function(){
         try {
             parkingLotObj.park();  
         } catch (error) {
-            assert.equal(error.message,"Vehicle Is Not Null Or Undefined")  
+            assert.equal(error.message,"Vehicle Is Not Null")  
         }
     })
     
