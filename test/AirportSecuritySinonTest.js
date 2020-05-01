@@ -18,10 +18,10 @@ describe(`Airport Security Sinon Testing `,function(){
     //UC4-Security Notify Parking Full
     it(`givenParkingLotFull_notifyToAirportSecurity_ShouldThrowException`, ()=> {
         try {
-            let car = new Object();
-            let car1 = new Object();
-            expect(parkingLotObj.park(car)).to.be.equal(true); 
-            expect(parkingLotObj.park(car1)).to.be.equal(true);
+            let vehicle =[new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object()]
+            vehicle.map(car => {
+                parkingLotObj.park(car)
+            })
         } catch (error) {
             expect(airportSecurity.isFull()).to.be.equal(error.message,"Parking Lot Is Full");
         }        

@@ -19,9 +19,10 @@ describe(`Parking Lot Owner Sinon Testing `,function(){
     //UC3-Parking Owner Should Know Parking Full Or Not
     it(`givenParkingLotFull_ShouldThrowExceptionNotyifyToOwner`,()=> {
         try {
-            let car = {};
-            let car1 = {};
-            expect(parkingLotObj.park(car)).to.be.equal(true);   
+            let vehicle =[new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object()]
+            vehicle.map(car => {
+                parkingLotObj.park(car)
+            }) 
         } catch (error) {
             expect(parkingLotOwner.isFull()).to.be.equal(error.message,"Parking Lot Is Full");
         }        
@@ -29,11 +30,10 @@ describe(`Parking Lot Owner Sinon Testing `,function(){
 
     //  //UC5-Owner Notify Available Space
     it(`givenParkingLotFull__whenSapceAvailableAgain__notifyOwner` , ()=> {
-        let car = {};
-        let car1 = {}
-        expect(parkingLotObj.park(car)).to.be.equal(true);
-        expect(parkingLotObj.park(car1)).to.be.equal(true);
-        expect(parkingLotObj.unPark(car)).to.be.equal(true);
+        let vehicle =[new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object()]
+        vehicle.map(car => {
+            parkingLotObj.park(car)
+        }) 
         expect(parkingLotOwner.spaceAvailable()).to.be.equal("Parking Lot Space Available");
     });
 

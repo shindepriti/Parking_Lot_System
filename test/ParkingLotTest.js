@@ -54,21 +54,22 @@ describe(`Parking Lot System`,function(){
 
     //UC6-Parked Vehicle At Particular position
     it(`givenVehicle__whenParkedAtParticularPosition__shouldReturnTrue`, () => {
-        let vehicle1 = {};
-        let vehicle2 = {};
-        parkingLotObj.park(vehicle1)
-        parkingLotObj.park(vehicle2)
-        parkingLotObj.unPark(vehicle2);
-        let checkEmptySlots = parkingLotObj.getEmptySlots();
-        assert.equal(checkEmptySlots,1)
+        let vehicle = [new Object(0), new Object(1), new Object(2), new Object(3), new Object(4), new Object(5), new Object(6), new Object(7), new Object(8)];
+        vehicle.map(car => {
+            parkingLotObj.park(car)
+        });
+        parkingLotObj.unPark(vehicle[2]);
+        let emptySlots = parkingLotObj.getEmptySlots();
+        assert.equal(emptySlots.lot,2)
+        assert.equal(emptySlots.slot,0)
     });
 
     it(`givenVehicle_whenSlotNotEmpty_shouldReturnException`,() =>{
         try {
-            let vehicle1 = {};
-            let vehicle2 = {};
-            parkingLotObj.park(vehicle1)
-            parkingLotObj.park(vehicle2)
+            let vehicle = [new Object(0), new Object(1), new Object(2), new Object(3), new Object(4), new Object(5), new Object(6), new Object(7), new Object(8)];
+            vehicle.map(vehicle => {
+                parkingLotObj.park(vehicle)
+            })
         } catch (error) {
             expect(parkingLotObj.getEmptySlots()).to.be.equal(error.message,"Parking Slot Is Not Empty");
         }
@@ -76,31 +77,34 @@ describe(`Parking Lot System`,function(){
 
     //UC7-Driver Find car
     it(`driver_whenFindVehicle_shouldReturnTrue`, () =>{
-        let vehicle1 = {};
-        let vehicle2 = {};
-        parkingLotObj.park(vehicle1)
-        parkingLotObj.park(vehicle2)
-        let getVehicle = parkingLotObj.findMyCar(vehicle2);
-        assert.equal(getVehicle,1)
+        let vehicle = [new Object(0),new Object(1),new Object(2)];
+        vehicle.map( car => {
+            parkingLotObj.park(car)
+        });
+        let findCar = parkingLotObj.findMyCar(vehicle[1]);
+        assert.equal(findCar.lot,1)
+        assert.equal(findCar.slot,0);
     })
 
     it(`whenDrier_notFindCar_shouldReturnFalse`, () => {
-        let findcar = parkingLotObj.findMyCar();
-        assert.equal(findcar,false);
+        let vehicle = [new Object(0),new Object(1),new Object(2)];
+        vehicle.map(vehicle => {
+            parkingLotObj.park(vehicle)
+        })
+        let findCar = parkingLotObj.findMyCar(vehicle);
+        assert.equal(findCar,false)
     })
 
     //UC8- Apply Charges to User
     it(`givenVehicle_whenparkedApplyCharges_shouldReturnTrue` , () =>{
         let vehicle1 = [new Object(0),new Date()];
-        let vehicle2 = [new Object(1),new Date()];
-        parkingLotObj.park(vehicle1);
-        let result =  parkingLotObj.park(vehicle2);
+        let result =  parkingLotObj.park(vehicle1);
         assert.equal(result,true);
     })
 
     //UC9
     it(`givenVehicle_whenParkEvenly_shouldReturnTrue`,() =>{
-        let car = [[new Object(0),new Date()],[new Object(1),new Date()],[new Object(2),new Date()],[new Object(3),new Date()],[new Object(4),new Date()],[new Object(5),new Date()],[new Object(6),new Date()]]
+        let car = [[new Object(0),new Date()],[new Object(1),new Date()],[new Object(2),new Date()],[new Object(3),new Date()],[new Object(4),new Date()],[new Object(5),new Date()],[new Object(6),new Date()],[new Object(7),new Date()]]
         car.map(car => {
            result =  parkingLotObj.park(car);
         })
