@@ -17,12 +17,12 @@ class ParkingLot{
             throw new Error("Vehicle Is Not Null Or Vehicle Must be Object")
         }
         if(this.parkingLotFull()){
-            return false;
+            throw new Error("Parking Lot Is Full");
         }
         if(vehicle.valueOf() == "Handicap"){
-            this.findParkigLotForHandicap();
-        }
-        lotNum = this.findParkingLotNum();
+            lotNum = this.findParkigLotForHandicap();
+        }else
+            lotNum = this.findParkingLotNum();
         for(let lot=0;lot<this.parkingLots[lotNum].length;lot++){
             if(this.parkingLots[lotNum][lot] == undefined)
                 this.parkingLots[lotNum][lot] = vehicle;
@@ -39,7 +39,7 @@ class ParkingLot{
         for(let lot = 0;lot < this.parkingLots.length;lot++){
             for(let slot = 0;slot < this.parkingLots.length;slot++){
                 if(this.parkingLots[lot][slot] == vehicle){
-                    this.parkingLots[lot][slot] = undefined
+                    this.parkingLots[lot][slot] = null
                     parkingLotObserver.addObject();
                     parkingLotObserver.getNotificationEmpty();
                     this.prevParkedLot= lot-1;
@@ -55,14 +55,14 @@ class ParkingLot{
         if(this.counter == parkingLotMaximumCapacity){
             parkingLotObserver.addObject();
             parkingLotObserver.getNotificationFull();        
-            throw new Error("Parking Lot Is Full")
+            return true
         }
     }
 
     getEmptySlots(){
         for(let lot=0;lot<this.parkingLots.length;lot++){
             for(let slot=0;slot<this.parkingLots[lot].length;slot++){
-                if(this.parkingLots[lot][slot] == undefined){
+                if(this.parkingLots[lot][slot] == null){
                     let emptyslots = {slot:slot,lot:lot}
                     return emptyslots;           
                 }
@@ -101,14 +101,12 @@ class ParkingLot{
 
     findParkigLotForHandicap(){
         for(let lot=0;lot<this.parkingLots.length;lot++){
-            for(let slot=0;slot<lot;slot++){
-                if(this.parkingLots[lot][slot] == undefined){
+            for(let slot=0;slot<this.parkingLots[lot].length;slot++){
+                if(this.parkingLots[lot][slot] == null){
                     return slot;
                 }
             }
         }
-        return false; 
-        
     }
 }
 module.exports =  ParkingLot;

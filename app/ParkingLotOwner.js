@@ -10,6 +10,7 @@ class ParkingLotOwner{
     }
 
     spaceAvailable(){
+        this.parkingFull = false
         return "Parking Lot Space Available"
     }
     

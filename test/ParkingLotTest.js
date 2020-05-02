@@ -12,6 +12,10 @@ describe(`Parking Lot System`,function(){
     beforeEach(() =>{
         parkingLotObj = new parkingLot();
     })
+
+    it(`check Class Exist`, () =>{
+        expect(parkingLot).to.not.be.undefined;
+    })
     
     //UC1-Test case to check car is park
     it(`givenVehicle_whenPark_shouldReturnTrue`,()=>{
@@ -46,10 +50,11 @@ describe(`Parking Lot System`,function(){
 
     it(`givenVehicle_WhenAllReadyUnparked_ShouldThrowException`,()=>{
         try {
-            let vehicle = {};
+             let vehicle = {};
+             let vehicle2 = {};
              parkingLotObj.park(vehicle);
-             parkingLotObj.unPark(vehicle);
-             parkingLotObj.unPark(vehicle);
+             parkingLotObj.unPark(vehicle2);
+             parkingLotObj.unPark(vehicle2);
         } catch (error) {
             assert.equal(error.message,"Vehicle Already Unparked")
         }
@@ -62,6 +67,17 @@ describe(`Parking Lot System`,function(){
             parkingLotObj.unPark();  
         } catch (error) {
             assert.equal(error.message,"Vehicle Is Not Null Or Undefined")  
+        }
+    })
+
+    it(`whenparkingLotFull_shouldReturnException`, () => {
+        try{
+        let vehicle = [new Object(0), new Object(1), new Object(2), new Object(3), new Object(4), new Object(5), new Object(6), new Object(7), new Object(8),new Object(9)];
+        vehicle.map(car => {
+            parkingLotObj.park(car)
+        });
+        } catch (error) {
+        assert.equal(error.message,"Parking Lot Is Full");
         }
     })
 
@@ -83,8 +99,9 @@ describe(`Parking Lot System`,function(){
             vehicle.map(vehicle => {
                 parkingLotObj.park(vehicle)
             })
+            parkingLotObj.getEmptySlots();
         } catch (error) {
-            expect(parkingLotObj.getEmptySlots()).to.be.equal(error.message,"Parking Slot Is Not Empty");
+            assert.equal(error.message,"Parking Slot Is Not Empty");
         }
     })
 
@@ -126,16 +143,29 @@ describe(`Parking Lot System`,function(){
 
     //UC10
     it(`whenDriverIsHandicap_ThenHisCarParksnNearestFreeSpace_shouldRetuReturnTrue `, () => {
-        let vehicle = new Object('Handicap');
-        let car = [[new Object(0), new Date()], [new Object(1), new Date()], [new Object(2), new Date()], [new Object(3), new Date()]]
-        car.map(vehicle1 => {
-            parkingLotObj.park(vehicle1);
+        let vehicle1 = new Object("Handicap");
+        let car = [[new Object(0), new Date()], [new Object(1), new Date()]]
+        car.map(vehicle => {
+            parkingLotObj.park(vehicle);
         })
-        let result = parkingLotObj.park(vehicle);
+        let result = parkingLotObj.park(vehicle1);
+        assert.equal(result, true)
+    });
+
+    it(`whenMultipleDriverIsHandicap_ThenHisCarParksnNearestFreeSpace_shouldRetuReturnTrue `, () => {
+        let vehicle1 = new Object("Handicap");
+        let vehicle2 = new Object("Handicap");
+        let car = [[new Object(0), new Date()], [new Object(1), new Date()]]
+        car.map(vehicle => {
+            parkingLotObj.park(vehicle);
+        })
+        parkingLotObj.park(vehicle1)
+        let result = parkingLotObj.park(vehicle2);
         assert.equal(result, true)
     });
 
 })
+
 
 
 describe(`Parking Lot Owner Sinon Testing `,function(){
