@@ -19,6 +19,9 @@ class ParkingLot{
         if(this.parkingLotFull()){
             return false;
         }
+        if(vehicle.valueOf() == "Handicap"){
+            this.findParkigLotForHandicap();
+        }
         lotNum = this.findParkingLotNum();
         for(let lot=0;lot<this.parkingLots[lotNum].length;lot++){
             if(this.parkingLots[lotNum][lot] == undefined)
@@ -96,6 +99,16 @@ class ParkingLot{
             this.parkingLots[i] = new Array(lotCapArr[i]);
     }
 
-    
+    findParkigLotForHandicap(){
+        for(let lot=0;lot<this.parkingLots.length;lot++){
+            for(let slot=0;slot<lot;slot++){
+                if(this.parkingLots[lot][slot] == undefined){
+                    return slot;
+                }
+            }
+        }
+        return false; 
+        
+    }
 }
 module.exports =  ParkingLot;
