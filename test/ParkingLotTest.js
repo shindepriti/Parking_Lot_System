@@ -1,6 +1,11 @@
 const assert = require('chai').assert;
 expect = require('chai').expect;
+sinon=require('sinon');
+
 const parkingLot = require("../app/ParkingLot")
+var airportSecurity = require("../app/AirportSecurity")
+var parkingLotOwner = require('../app/ParkingLotOwner');
+
 describe(`Parking Lot System`,function(){
     
     let parkingLotObj;
@@ -19,9 +24,17 @@ describe(`Parking Lot System`,function(){
         try {
             parkingLotObj.park();  
         } catch (error) {
-            assert.equal(error.message,"Vehicle Is Not Null")  
+            assert.equal(error.message,"Vehicle Is Not Null Or Vehicle Must be Object")  
         }
     })
+    it(`givenVehicle_WhenNotObjectPark_ShouldThrowException`,()=>{
+        try {
+            parkingLotObj.park(1);  
+        } catch (error) {
+            assert.equal(error.message,"Vehicle Is Not Null Or Vehicle Must be Object")  
+        }
+    })
+    
     
      //UC2-Test case To check Car is Unpark
      it(`givenVehicle_whenUnParked_shouldReturnTrue`,()=>{
@@ -122,4 +135,66 @@ describe(`Parking Lot System`,function(){
         assert.equal(result, true)
     });
 
-})  
+})
+
+
+describe(`Parking Lot Owner Sinon Testing `,function(){
+
+    let parkingLotObj;
+        beforeEach(function(){
+        parkingLotObj = new parkingLot();
+        sinon.stub(parkingLotOwner,'isFull');
+    })
+
+    afterEach(function(){
+        parkingLotOwner.isFull.restore();
+    })
+
+    //UC3-Parking Owner Should Know Parking Full Or Not
+    it(`givenParkingLotFull_ShouldThrowExceptionNotyifyToOwner`,()=> {
+        try {
+            let vehicle =[new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object()]
+            vehicle.map(car => {
+                parkingLotObj.park(car)
+            }) 
+        } catch (error) {
+            expect(parkingLotOwner.isFull()).to.be.equal(error.message,"Parking Lot Is Full");
+        }        
+    });
+
+    //  //UC5-Owner Notify Available Space
+    it(`givenParkingLotFull__whenSapceAvailableAgain__notifyOwner` , ()=> {
+        let vehicle =[new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object()]
+        vehicle.map(car => {
+            parkingLotObj.park(car)
+        }) 
+        expect(parkingLotOwner.spaceAvailable()).to.be.equal("Parking Lot Space Available");
+    });
+
+});
+
+describe(`Airport Security Sinon Testing `,function(){
+    
+    let parkingLotObj;
+    beforeEach(function(){
+        parkingLotObj = new parkingLot();
+        sinon.stub(airportSecurity,'isFull');
+    })
+
+    afterEach(function(){
+        airportSecurity.isFull.restore();
+    })
+
+    //UC4-Security Notify Parking Full
+    it(`givenParkingLotFull_notifyToAirportSecurity_ShouldThrowException`, ()=> {
+        try {
+            let vehicle =[new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object()]
+            vehicle.map(car => {
+                parkingLotObj.park(car)
+            })
+        } catch (error) {
+            expect(airportSecurity.isFull()).to.be.equal(error.message,"Parking Lot Is Full");
+        }        
+    });
+
+});

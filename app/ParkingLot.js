@@ -13,8 +13,8 @@ class ParkingLot{
     
     park(vehicle){
         let lotNum;
-        if (vehicle == null) {
-            throw new Error("Vehicle Is Not Null")
+        if (vehicle == null ||  typeof vehicle != "object" ) {
+            throw new Error("Vehicle Is Not Null Or Vehicle Must be Object")
         }
         if(this.parkingLotFull()){
             return false;
