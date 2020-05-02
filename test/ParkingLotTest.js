@@ -111,4 +111,15 @@ describe(`Parking Lot System`,function(){
         assert.equal(result,true)
     })
 
+    //UC10
+    it(`whenDriverIsHandicap_ThenHisCarParksnNearestFreeSpace_shouldRetuReturnTrue `, () => {
+        let vehicle = new Object('Handicap');
+        let car = [[new Object(0), new Date()], [new Object(1), new Date()], [new Object(2), new Date()], [new Object(3), new Date()]]
+        car.map(vehicle1 => {
+            parkingLotObj.park(vehicle1);
+        })
+        let result = parkingLotObj.park(vehicle);
+        assert.equal(result, true)
+    });
+
 })  

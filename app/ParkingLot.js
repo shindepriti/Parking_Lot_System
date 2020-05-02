@@ -19,7 +19,6 @@ class ParkingLot{
         if(this.parkingLotFull()){
             return false;
         }
-        
         lotNum = this.findParkingLotNum();
         for(let lot=0;lot<this.parkingLots[lotNum].length;lot++){
             if(this.parkingLots[lotNum][lot] == undefined)
@@ -97,5 +96,6 @@ class ParkingLot{
             this.parkingLots[i] = new Array(lotCapArr[i]);
     }
 
+    
 }
 module.exports =  ParkingLot;
