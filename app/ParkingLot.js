@@ -11,7 +11,7 @@ class ParkingLot{
         this.prevParkedLot = -1;
     }
     
-    park(vehicle){
+    park(vehicle,driver){
         let lotNum;
         if (vehicle == null ||  typeof vehicle != "object" ) {
             throw new Error("Vehicle Is Not Null Or Vehicle Must be Object")
@@ -19,9 +19,9 @@ class ParkingLot{
         if(this.parkingLotFull()){
             throw new Error("Parking Lot Is Full");
         }
-        if(vehicle.valueOf() == "Handicap"){
+        if(driver == "Handicap"){
             lotNum = this.findParkigLotForHandicap();
-        }else
+        }else(driver == "Normal")
             lotNum = this.findParkingLotNum();
         for(let lot=0;lot<this.parkingLots[lotNum].length;lot++){
             if(this.parkingLots[lotNum][lot] == undefined)

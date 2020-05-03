@@ -5,6 +5,7 @@ sinon=require('sinon');
 const parkingLot = require("../app/ParkingLot")
 var airportSecurity = require("../app/AirportSecurity")
 var parkingLotOwner = require('../app/ParkingLotOwner');
+var driver = require("../app/Driver")
 
 describe(`Parking Lot System`,function(){
     
@@ -20,7 +21,7 @@ describe(`Parking Lot System`,function(){
     //UC1-Test case to check car is park
     it(`givenVehicle_whenPark_shouldReturnTrue`,()=>{
         let vehicle = {};
-        let park = parkingLotObj.park(vehicle);
+        let park = parkingLotObj.park(vehicle,driver.type.NORMAL);
         assert.isTrue(park);
     })
 
@@ -43,7 +44,7 @@ describe(`Parking Lot System`,function(){
      //UC2-Test case To check Car is Unpark
      it(`givenVehicle_whenUnParked_shouldReturnTrue`,()=>{
         let vehicle = {};
-        parkingLotObj.park(vehicle);
+        parkingLotObj.park(vehicle,driver.type.NORMAL);
         let unPark = parkingLotObj.unPark(vehicle);
         assert.isTrue(unPark);
     })
@@ -52,7 +53,7 @@ describe(`Parking Lot System`,function(){
         try {
              let vehicle = {};
              let vehicle2 = {};
-             parkingLotObj.park(vehicle);
+             parkingLotObj.park(vehicle,driver.type.NORMAL);
              parkingLotObj.unPark(vehicle2);
              parkingLotObj.unPark(vehicle2);
         } catch (error) {
@@ -63,7 +64,7 @@ describe(`Parking Lot System`,function(){
     it(`givenVehicle_WhenNullUnPark_ShouldThrowException`,()=>{
         try {
             let vehicle = {};
-            parkingLotObj.park(vehicle)
+            parkingLotObj.park(vehicle,driver.type.NORMAL)
             parkingLotObj.unPark();  
         } catch (error) {
             assert.equal(error.message,"Vehicle Is Not Null Or Undefined")  
@@ -74,7 +75,7 @@ describe(`Parking Lot System`,function(){
         try{
         let vehicle = [new Object(0), new Object(1), new Object(2), new Object(3), new Object(4), new Object(5), new Object(6), new Object(7), new Object(8),new Object(9)];
         vehicle.map(car => {
-            parkingLotObj.park(car)
+            parkingLotObj.park(car,driver.type.NORMAL)
         });
         } catch (error) {
         assert.equal(error.message,"Parking Lot Is Full");
@@ -85,7 +86,7 @@ describe(`Parking Lot System`,function(){
     it(`givenVehicle__whenParkedAtParticularPosition__shouldReturnTrue`, () => {
         let vehicle = [new Object(0), new Object(1), new Object(2), new Object(3), new Object(4), new Object(5), new Object(6), new Object(7), new Object(8)];
         vehicle.map(car => {
-            parkingLotObj.park(car)
+            parkingLotObj.park(car,driver.type.NORMAL)
         });
         parkingLotObj.unPark(vehicle[2]);
         let emptySlots = parkingLotObj.getEmptySlots();
@@ -97,7 +98,7 @@ describe(`Parking Lot System`,function(){
         try {
             let vehicle = [new Object(0), new Object(1), new Object(2), new Object(3), new Object(4), new Object(5), new Object(6), new Object(7), new Object(8)];
             vehicle.map(vehicle => {
-                parkingLotObj.park(vehicle)
+                parkingLotObj.park(vehicle,driver.type.NORMAL)
             })
             parkingLotObj.getEmptySlots();
         } catch (error) {
@@ -109,7 +110,7 @@ describe(`Parking Lot System`,function(){
     it(`driver_whenFindVehicle_shouldReturnTrue`, () =>{
         let vehicle = [new Object(0),new Object(1),new Object(2)];
         vehicle.map( car => {
-            parkingLotObj.park(car)
+            parkingLotObj.park(car,driver.type.NORMAL)
         });
         let findCar = parkingLotObj.findMyCar(vehicle[1]);
         assert.equal(findCar.lot,1)
@@ -119,7 +120,7 @@ describe(`Parking Lot System`,function(){
     it(`whenDrier_notFindCar_shouldReturnFalse`, () => {
         let vehicle = [new Object(0),new Object(1),new Object(2)];
         vehicle.map(vehicle => {
-            parkingLotObj.park(vehicle)
+            parkingLotObj.park(vehicle,driver.type.NORMAL)
         })
         let findCar = parkingLotObj.findMyCar(vehicle);
         assert.equal(findCar,false)
@@ -128,7 +129,7 @@ describe(`Parking Lot System`,function(){
     //UC8- Apply Charges to User
     it(`givenVehicle_whenparkedApplyCharges_shouldReturnTrue` , () =>{
         let vehicle1 = [new Object(0),new Date()];
-        let result =  parkingLotObj.park(vehicle1);
+        let result =  parkingLotObj.park(vehicle1,driver.type.NORMAL);
         assert.equal(result,true);
     })
 
@@ -136,31 +137,31 @@ describe(`Parking Lot System`,function(){
     it(`givenVehicle_whenParkEvenly_shouldReturnTrue`,() =>{
         let car = [[new Object(0),new Date()],[new Object(1),new Date()],[new Object(2),new Date()],[new Object(3),new Date()],[new Object(4),new Date()],[new Object(5),new Date()],[new Object(6),new Date()],[new Object(7),new Date()]]
         car.map(car => {
-           result =  parkingLotObj.park(car);
+           result =  parkingLotObj.park(car,driver.type.NORMAL);
         })
         assert.equal(result,true)
     })
 
     //UC10
     it(`whenDriverIsHandicap_ThenHisCarParksnNearestFreeSpace_shouldRetuReturnTrue `, () => {
-        let vehicle1 = new Object("Handicap");
-        let car = [[new Object(0), new Date()], [new Object(1), new Date()]]
+        let vehicle1 = new Object();
+        let car = [[new Object(0), new Date()], [new Object(1), new Date()],]
         car.map(vehicle => {
-            parkingLotObj.park(vehicle);
+           parkingLotObj.park(vehicle,driver.type.HANDICAP);
         })
-        let result = parkingLotObj.park(vehicle1);
+        let result = parkingLotObj.park(vehicle1,driver.type.HANDICAP);
         assert.equal(result, true)
     });
 
     it(`whenMultipleDriverIsHandicap_ThenHisCarParksnNearestFreeSpace_shouldRetuReturnTrue `, () => {
-        let vehicle1 = new Object("Handicap");
-        let vehicle2 = new Object("Handicap");
+        let vehicle1 = new Object();
+        let vehicle2 = new Object();
         let car = [[new Object(0), new Date()], [new Object(1), new Date()]]
         car.map(vehicle => {
-            parkingLotObj.park(vehicle);
+            parkingLotObj.park(vehicle,driver.type.NORMAL);
         })
-        parkingLotObj.park(vehicle1)
-        let result = parkingLotObj.park(vehicle2);
+        parkingLotObj.park(vehicle1,driver.type.HANDICAP)
+        let result = parkingLotObj.park(vehicle2,driver.type.HANDICAP);
         assert.equal(result, true)
     });
 
@@ -185,7 +186,7 @@ describe(`Parking Lot Owner Sinon Testing `,function(){
         try {
             let vehicle =[new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object()]
             vehicle.map(car => {
-                parkingLotObj.park(car)
+                parkingLotObj.park(car,driver.type.NORMAL)
             }) 
         } catch (error) {
             expect(parkingLotOwner.isFull()).to.be.equal(error.message,"Parking Lot Is Full");
@@ -196,7 +197,7 @@ describe(`Parking Lot Owner Sinon Testing `,function(){
     it(`givenParkingLotFull__whenSapceAvailableAgain__notifyOwner` , ()=> {
         let vehicle =[new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object()]
         vehicle.map(car => {
-            parkingLotObj.park(car)
+            parkingLotObj.park(car,driver.type.NORMAL)
         }) 
         expect(parkingLotOwner.spaceAvailable()).to.be.equal("Parking Lot Space Available");
     });
@@ -220,7 +221,7 @@ describe(`Airport Security Sinon Testing `,function(){
         try {
             let vehicle =[new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object()]
             vehicle.map(car => {
-                parkingLotObj.park(car)
+                parkingLotObj.park(car,driver.type.NORMAL)
             })
         } catch (error) {
             expect(airportSecurity.isFull()).to.be.equal(error.message,"Parking Lot Is Full");
