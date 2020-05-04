@@ -21,7 +21,10 @@ class ParkingLot{
         }
         if(driverType == "Handicap"){
             lotNum = this.findParkigLotForHandicap();
-
+            
+        }else if(vehicleType == "Large"){
+            lotNum = this.findParkingLotHavingMaxSpace()
+            
         }else if(driverType == "Normal" || vehicleType == "Small"){
             lotNum = this.findParkingLotNum();
         }
@@ -112,6 +115,27 @@ class ParkingLot{
                 }
             }
         }
+    }
+
+    findParkingLotHavingMaxSpace(){
+        let prevLotNum = -1;
+        let prevLotEmptySlots = -1;
+        for(let lot=0;lot<this.parkingLots.length;lot++){
+            let emptySlots = -1;
+            for(let slot=0;slot<this.parkingLots[lot].length;slot++){
+                if(this.parkingLots[lot][slot] == null){
+                    emptySlots++;
+                }
+            }
+            if(prevLotNum == -1){
+                prevLotNum = lot;
+                prevLotEmptySlots = emptySlots;
+            }else if(prevLotEmptySlots < emptySlots){
+                prevLotNum = lot;
+                prevLotEmptySlots = emptySlots;
+            }
+        }
+        return prevLotNum;
     }
 }
 module.exports =  ParkingLot;

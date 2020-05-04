@@ -159,10 +159,10 @@ describe(`Parking Lot System`,function(){
         let vehicle2 = new Object();
         let car = [[new Object("Tata"), new Date()], [new Object("Ford"), new Date()]]
         car.map(vehicle => {
-            parkingLotObj.park(vehicle,driver.type.NORMAL);
+            parkingLotObj.park(vehicle,driver.type.NORMAL,vehicleType.SMALL);
         })
         parkingLotObj.park(vehicle1,driver.type.HANDICAP)
-        let result = parkingLotObj.park(vehicle2,driver.type.HANDICAP);
+        let result = parkingLotObj.park(vehicle2,driver.type.HANDICAP,vehicleType.SMALL);
         assert.equal(result,0)
     });
 
@@ -198,7 +198,7 @@ describe(`Parking Lot Owner Sinon Testing `,function(){
         try {
             let vehicle =[new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object()]
             vehicle.map(car => {
-                parkingLotObj.park(car,driver.type.NORMAL)
+                parkingLotObj.park(car,driver.type.NORMAL,vehicleType.SMALL)
             }) 
         } catch (error) {
             expect(parkingLotOwner.isFull()).to.be.equal(error.message,"Parking Lot Is Full");
@@ -209,7 +209,7 @@ describe(`Parking Lot Owner Sinon Testing `,function(){
     it(`givenParkingLotFull__whenSapceAvailableAgain__notifyOwner` , ()=> {
         let vehicle =[new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object()]
         vehicle.map(car => {
-            parkingLotObj.park(car,driver.type.NORMAL)
+            parkingLotObj.park(car,driver.type.NORMAL,vehicleType.SMALL)
         }) 
         expect(parkingLotOwner.spaceAvailable()).to.be.equal("Parking Lot Space Available");
     });
@@ -233,7 +233,7 @@ describe(`Airport Security Sinon Testing `,function(){
         try {
             let vehicle =[new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object()]
             vehicle.map(car => {
-                parkingLotObj.park(car,driver.type.NORMAL)
+                parkingLotObj.park(car,driver.type.NORMAL,vehicleType.SMALL)
             })
         } catch (error) {
             expect(airportSecurity.isFull()).to.be.equal(error.message,"Parking Lot Is Full");
