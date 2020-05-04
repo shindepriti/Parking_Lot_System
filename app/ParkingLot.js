@@ -6,12 +6,12 @@ class ParkingLot{
 
     constructor(){
         this.parkingLots = [];
-        this.initSlots(3,[3,3,3]);
+        this.initSlots(3,[3,3,6]);
         this.counter = 0;
         this.prevParkedLot = -1;
     }
     
-    park(vehicle,driver){
+    park(vehicle,driverType,vehicleType){
         let lotNum;
         if (vehicle == null ||  typeof vehicle != "object" ) {
             throw new Error("Vehicle Is Not Null Or Vehicle Must be Object")
@@ -19,17 +19,21 @@ class ParkingLot{
         if(this.parkingLotFull()){
             throw new Error("Parking Lot Is Full");
         }
-        if(driver == "Handicap"){
+        if(driverType == "Handicap"){
             lotNum = this.findParkigLotForHandicap();
-        }else(driver == "Normal")
+
+        }else if(driverType == "Normal" || vehicleType == "Small"){
             lotNum = this.findParkingLotNum();
+        }
         for(let lot=0;lot<this.parkingLots[lotNum].length;lot++){
-            if(this.parkingLots[lotNum][lot] == undefined)
+            if(this.parkingLots[lotNum][lot] == null){
                 this.parkingLots[lotNum][lot] = vehicle;
+                break;
+            }
         }
         this.prevParkedLot = lotNum;
         this.counter++;
-        return true;
+        return lotNum;
     }
 
     unPark(vehicle){
@@ -64,7 +68,8 @@ class ParkingLot{
             for(let slot=0;slot<this.parkingLots[lot].length;slot++){
                 if(this.parkingLots[lot][slot] == null){
                     let emptyslots = {slot:slot,lot:lot}
-                    return emptyslots;           
+                    return emptyslots; 
+                              
                 }
             }
         }
@@ -103,7 +108,7 @@ class ParkingLot{
         for(let lot=0;lot<this.parkingLots.length;lot++){
             for(let slot=0;slot<this.parkingLots[lot].length;slot++){
                 if(this.parkingLots[lot][slot] == null){
-                    return slot;
+                    return lot;
                 }
             }
         }
