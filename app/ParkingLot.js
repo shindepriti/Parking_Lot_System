@@ -11,7 +11,7 @@ class ParkingLot{
         this.prevParkedLot = -1;
     }
     
-    park(vehicle,driverType,vehicleType){
+    park=(vehicle,driverType,vehicleType)=>{
         let lotNum;
         if (vehicle == null ||  typeof vehicle != "object" ) {
             throw new Error("Vehicle Is Not Null Or Vehicle Must be Object")
@@ -39,7 +39,7 @@ class ParkingLot{
         return lotNum;
     }
 
-    unPark(vehicle){
+    unPark=(vehicle)=>{
         if(vehicle == null || vehicle == undefined){
             throw new Error("Vehicle Is Not Null Or Undefined")
         }
@@ -58,7 +58,7 @@ class ParkingLot{
         throw new Error("Vehicle Already Unparked")     
     }
 
-    parkingLotFull(){
+    parkingLotFull=()=>{
         if(this.counter == parkingLotMaximumCapacity){
             parkingLotObserver.addObject();
             parkingLotObserver.getNotificationFull();        
@@ -66,7 +66,7 @@ class ParkingLot{
         }
     }
 
-    getEmptySlots(){
+    getEmptySlots=()=>{
         for(let lot=0;lot<this.parkingLots.length;lot++){
             for(let slot=0;slot<this.parkingLots[lot].length;slot++){
                 if(this.parkingLots[lot][slot] == null){
@@ -79,7 +79,7 @@ class ParkingLot{
         throw new Error("Parking Slot Is Not Empty")
     }
 
-    findMyCar(vehicle){
+    findMyCar=(vehicle)=>{
         for(let lot=0;lot<this.parkingLots.length;lot++){
             for(let slot=0;slot<this.parkingLots[lot].length;slot++){
                 if(this.parkingLots[lot][slot] == vehicle){
@@ -91,7 +91,7 @@ class ParkingLot{
        return false;
     }
 
-    findParkingLotNum(){
+    findParkingLotNum=()=>{
         let lotNumber = -1;
         if(this.prevParkedLot+1 == this.parkingLots.length)
             lotNumber = 0;
@@ -100,14 +100,14 @@ class ParkingLot{
             return lotNumber;
         }
 
-    initSlots(slotsCnt,lotCapArr){
+    initSlots=(slotsCnt,lotCapArr)=>{
         this.parkingLots=[];
         this.prevParkedLot= -1;
         for(let i=0;i<slotsCnt;i++)
             this.parkingLots[i] = new Array(lotCapArr[i]);
     }
 
-    findParkigLotForHandicap(){
+    findParkigLotForHandicap=()=>{
         for(let lot=0;lot<this.parkingLots.length;lot++){
             for(let slot=0;slot<this.parkingLots[lot].length;slot++){
                 if(this.parkingLots[lot][slot] == null){
@@ -117,7 +117,7 @@ class ParkingLot{
         }
     }
 
-    findParkingLotHavingMaxSpace(){
+    findParkingLotHavingMaxSpace=()=>{
         let prevLotNum = -1;
         let prevLotEmptySlots = -1;
         for(let lot=0;lot<this.parkingLots.length;lot++){
@@ -137,5 +137,7 @@ class ParkingLot{
         }
         return prevLotNum;
     }
+
+        
 }
 module.exports =  ParkingLot;

@@ -144,7 +144,7 @@ describe(`Parking Lot System`,function(){
     })
 
     //UC10
-    it(`whenDriverIsHandicap_ThenHisCarParksnNearestFreeSpace_shouldRetuReturnTrue `, () => {
+    it(`whenDriverIsHandicap_ThenHisCarParksnNearestFreeSpace_shouldRetuReturnLotNumber `, () => {
         let vehicle1 = new Object();
         let car = [[new Object(0), new Date()], [new Object(1), new Date()],[new Object(2), new Date()],[new Object(3), new Date()],[new Object(4), new Date()]]
         car.map(vehicle => {
@@ -154,20 +154,20 @@ describe(`Parking Lot System`,function(){
         assert.equal(result,0)
     });
 
-    it(`whenMultipleDriverIsHandicap_ThenHisCarParksnNearestFreeSpace_shouldRetuReturnTrue `, () => {
+    it(`whenMultipleDriverIsHandicap_ThenHisCarParksnNearestFreeSpace_shouldRetuReturnLotNumber `, () => {
         let vehicle1 = new Object();
         let vehicle2 = new Object();
         let car = [[new Object("Tata"), new Date()], [new Object("Ford"), new Date()]]
         car.map(vehicle => {
             parkingLotObj.park(vehicle,driver.type.NORMAL,vehicleType.SMALL);
         })
-        parkingLotObj.park(vehicle1,driver.type.HANDICAP)
+        parkingLotObj.park(vehicle1,driver.type.HANDICAP,vehicleType.SMALL)
         let result = parkingLotObj.park(vehicle2,driver.type.HANDICAP,vehicleType.SMALL);
         assert.equal(result,0)
     });
 
     //UC11 Park Large Vehicle At Highest No Of Free Space
-    it(`should return true when largest car comes then it will park in highest no of free space. `, () => {
+    it(`whenLargestCarComes_thenItWillParkInHighestNoOfFreeSpace_shouldReturnLoyNumber `, () => {
         let car1 = new Object();
         let car = [[new Object(), new Date()], [new Object(), new Date()], [new Object(), new Date()], [new Object(), new Date()]]
         car.map(car => {
@@ -177,7 +177,34 @@ describe(`Parking Lot System`,function(){
         assert.equal(emptySpace,2)
     });
 
+    //UC12 Find Location Of White Cars
+    it(`givenVehicleColour_WhenFindVehicleAccordinglyColour_ShouldReturnSlotNumber`, () =>{
+        let car1 = new Object("White");
+        let car = [[new Object(), new Date()], [new Object(), new Date()], [new Object(), new Date()], [new Object(), new Date()],[new Object(), new Date()]]
+        car.map(car => {
+            parkingLotObj.park(car,driver.type.NORMAL,vehicleType.SMALL);
+        })
+        parkingLotObj.park(car1,driver.type.NORMAL,vehicleType.SMALL)
+        let vehicleByColor = parkingLotObj.findVehicleByColor("White")
+        assert.equal(vehicleByColor.lot,2)
+        assert.equal(vehicleByColor.slot,1)
+    });
+
+    it(`givenVehicleColor_whenFindVehicleNotFoundByColor_shouldreturnException`,()=>{
+        try {
+            let vehicle = [new Object(0),new Object(1),new Object(2)];
+            vehicle.map(vehicle => {
+                parkingLotObj.park(vehicle,driver.type.NORMAL,vehicleType.SMALL)
+            })
+            parkingLotObj.findVehicleByColor(vehicle);   
+        } catch (error) {
+            assert.equal(error.message,"Vehicle Not Available")
+            
+        }        
+    })
+
 })
+
 
 
 
