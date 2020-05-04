@@ -138,6 +138,18 @@ class ParkingLot{
         return prevLotNum;
     }
 
-        
+    findVehicleByColor(color){
+        for(let lot=0;lot<this.parkingLots.length;lot++){
+            for(let slot=0;slot<this.parkingLots[lot].length;slot++){
+                if(this.parkingLots[lot][slot] == color){
+                    let carSlot = {lot:lot,slot:slot}
+                    return carSlot;           
+                }
+            }
+        }
+       throw new Error("Vehicle Not Available")
+    }
+
+    
 }
 module.exports =  ParkingLot;
