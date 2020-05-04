@@ -179,29 +179,16 @@ describe(`Parking Lot System`,function(){
 
     //UC12 Find Location Of White Cars
     it(`givenVehicleColour_WhenFindVehicleAccordinglyColour_ShouldReturnSlotNumber`, () =>{
-        let car1 = new Object("White");
-        let car = [[new Object(), new Date()], [new Object(), new Date()], [new Object(), new Date()], [new Object(), new Date()],[new Object(), new Date()]]
+        let car = [{color : "White"}, {color : "Black"}, {color :"Red"},{color : "Red"}, {color : "green"},{color:"Blue"}]
         car.map(car => {
             parkingLotObj.park(car,driver.type.NORMAL,vehicleType.SMALL);
         })
-        parkingLotObj.park(car1,driver.type.NORMAL,vehicleType.SMALL)
         let vehicleByColor = parkingLotObj.findVehicleByColor("White")
-        assert.equal(vehicleByColor.lot,2)
-        assert.equal(vehicleByColor.slot,1)
+        assert.equal(vehicleByColor[0].lot,0)
+        assert.equal(vehicleByColor[0].slot,0)
     });
 
-    it(`givenVehicleColor_whenFindVehicleNotFoundByColor_shouldreturnException`,()=>{
-        try {
-            let vehicle = [new Object(0),new Object(1),new Object(2)];
-            vehicle.map(vehicle => {
-                parkingLotObj.park(vehicle,driver.type.NORMAL,vehicleType.SMALL)
-            })
-            parkingLotObj.findVehicleByColor(vehicle);   
-        } catch (error) {
-            assert.equal(error.message,"Vehicle Not Available")
-            
-        }        
-    })
+
 
 })
 
