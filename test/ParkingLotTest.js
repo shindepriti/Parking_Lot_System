@@ -204,8 +204,6 @@ describe(`Parking Lot System`,function(){
 })
 
 
-
-
 describe(`Parking Lot Owner Sinon Testing `,function(){
 
     let parkingLotObj;
