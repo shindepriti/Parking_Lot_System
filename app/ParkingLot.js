@@ -138,16 +138,27 @@ class ParkingLot{
         return prevLotNum;
     }
 
-    findVehicleByColor(color){
+    findVehicleByColor=(color,modelName,plateNumber)=>{
+        let vehicleArr = []
         for(let lot=0;lot<this.parkingLots.length;lot++){
             for(let slot=0;slot<this.parkingLots[lot].length;slot++){
-                if(this.parkingLots[lot][slot] == color){
-                    let carSlot = {lot:lot,slot:slot}
-                    return carSlot;           
+                if(this.parkingLots[lot][slot] != null){
+                    if(this.parkingLots[lot][slot].color == color){
+                        if(modelName || plateNumber){
+                            if(this.parkingLots[lot][slot].modelName == modelName || 
+                                this.parkingLots[lot][slot].plateNumber === plateNumber){
+                                let carSlot = {lot:lot,slot:slot}
+                                vehicleArr.push(carSlot)
+                            }
+                        }else{
+                            let carSlot = {lot:lot,slot:slot}
+                                vehicleArr.push(carSlot);                            
+                        }         
+                    }
                 }
-            }
+            }         
         }
-       throw new Error("Vehicle Not Available")
+        return vehicleArr;          
     }
 
     

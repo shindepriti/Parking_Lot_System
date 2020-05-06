@@ -105,7 +105,7 @@ describe(`Parking Lot System`,function(){
         } catch (error) {
             assert.equal(error.message,"Parking Slot Is Not Empty");
         }
-    })
+    })  
 
     //UC7-Driver Find car
     it(`driver_whenFindVehicle_shouldReturnTrue`, () =>{
@@ -179,31 +179,36 @@ describe(`Parking Lot System`,function(){
 
     //UC12 Find Location Of White Cars
     it(`givenVehicleColour_WhenFindVehicleAccordinglyColour_ShouldReturnSlotNumber`, () =>{
-        let car = [{color : "White"}, {color : "Black"}, {color :"Red"},{color : "Red"}, {color : "green"},{color:"Blue"}]
+        let car = [{color : "White"}, {color : "White"}, {color :"Red"},{color : "Red"}, {color : "green"},{color:"Blue"}]
         car.map(car => {
             parkingLotObj.park(car,driver.type.NORMAL,vehicleType.SMALL);
         })
         let vehicleByColor = parkingLotObj.findVehicleByColor("White")
         assert.equal(vehicleByColor[0].lot,0)
         assert.equal(vehicleByColor[0].slot,0)
+        assert.equal(vehicleByColor[1].lot,1)
+        assert.equal(vehicleByColor[1].slot,0)
     });
 
     //UC13 
     it(`givenVehicleModelNumberAndColor_WhenFindVehicleAccordinglyModelNumberAndColor_ShouldReturnSlot`,()=>{
-        let car = [{color : "Blue",modelName : "Toyota",numberPlate:"MH-19"},
-                   {color : "Black", modelName: "Tata" ,numberPlate:"MH-10"},
-                   {color : "Red", modelName: "BMW" ,numberPlate:"MH-9"}]
-        car.map(car => {
+        let car = [{color : "Blue",modelName : "Toyota",numberPlate:"MH-10"},
+                   {color : "Red", modelName: "BMW" ,numberPlate:"MH-19"},
+                   {color : "Blue", modelName: "Toyota" ,numberPlate:"MH-9"},
+                    {color : "Green",modelName :"Tata",numberPlate:"MH-10"}]
+        car.forEach(car => {
             parkingLotObj.park(car,driver.type.NORMAL,vehicleType.SMALL);
         })
-        let vehicleByColor = parkingLotObj.findVehicleByColor("Blue","Toyota")
+        let vehicleByColor = parkingLotObj.findVehicleByColor("Blue","Toyota","MH-10")
         assert.equal(vehicleByColor[0].lot,0)
         assert.equal(vehicleByColor[0].slot,0)
+        assert.equal(vehicleByColor[2].lot,2)
+        assert.equal(vehicleByColor[2].slot,0)
     })
 
+   
+
 })
-
-
 
 
 describe(`Parking Lot Owner Sinon Testing `,function(){
