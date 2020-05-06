@@ -188,7 +188,18 @@ describe(`Parking Lot System`,function(){
         assert.equal(vehicleByColor[0].slot,0)
     });
 
-
+    //UC13 
+    it(`givenVehicleModelNumberAndColor_WhenFindVehicleAccordinglyModelNumberAndColor_ShouldReturnSlot`,()=>{
+        let car = [{color : "Blue",modelName : "Toyota",numberPlate:"MH-19"},
+                   {color : "Black", modelName: "Tata" ,numberPlate:"MH-10"},
+                   {color : "Red", modelName: "BMW" ,numberPlate:"MH-9"}]
+        car.map(car => {
+            parkingLotObj.park(car,driver.type.NORMAL,vehicleType.SMALL);
+        })
+        let vehicleByColor = parkingLotObj.findVehicleByColor("Blue","Toyota")
+        assert.equal(vehicleByColor[0].lot,0)
+        assert.equal(vehicleByColor[0].slot,0)
+    })
 
 })
 
