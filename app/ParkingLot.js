@@ -161,6 +161,21 @@ class ParkingLot{
         return vehicleArr;          
     }
 
+    findVehicleByModelNumber=(modelName)=>{
+        let vehicleArr = []
+        for(let lot=0;lot<this.parkingLots.length;lot++){
+            for(let slot=0;slot<this.parkingLots[lot].length;slot++){
+                if(this.parkingLots[lot][slot] != null){
+                    if(this.parkingLots[lot][slot].modelName == modelName){
+                        let carSlot = {lot:lot,slot:slot}
+                        vehicleArr.push(carSlot)
+                    }
+                }
+            }
+        }
+        return vehicleArr;
+    }
+
     
 }
 module.exports =  ParkingLot;

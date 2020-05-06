@@ -105,7 +105,7 @@ describe(`Parking Lot System`,function(){
         } catch (error) {
             assert.equal(error.message,"Parking Slot Is Not Empty");
         }
-    })  
+    })
 
     //UC7-Driver Find car
     it(`driver_whenFindVehicle_shouldReturnTrue`, () =>{
@@ -190,7 +190,7 @@ describe(`Parking Lot System`,function(){
         assert.equal(vehicleByColor[1].slot,0)
     });
 
-    //UC13 
+    //UC13 Find By color Or ModelName 
     it(`givenVehicleModelNumberAndColor_WhenFindVehicleAccordinglyModelNumberAndColor_ShouldReturnSlot`,()=>{
         let car = [{color : "Blue",modelName : "Toyota",numberPlate:"MH-10"},
                    {color : "Red", modelName: "BMW" ,numberPlate:"MH-19"},
@@ -202,11 +202,21 @@ describe(`Parking Lot System`,function(){
         let vehicleByColor = parkingLotObj.findVehicleByColor("Blue","Toyota","MH-10")
         assert.equal(vehicleByColor[0].lot,0)
         assert.equal(vehicleByColor[0].slot,0)
-        assert.equal(vehicleByColor[2].lot,2)
-        assert.equal(vehicleByColor[2].slot,0)
+    }) 
+    
+    //UC14 find By ModelName
+    it(`givenvehicleModelName_whenFindVehicleAccordinglyModeName_shouldReturnLotNumber`,()=>{
+        let car = [{color : "Blue",modelName : "BMW",numberPlate:"MH-10"},
+                   {color : "Red", modelName: "Lambargini" ,numberPlate:"MH-19"},
+                   {color : "Blue", modelName: "Toyota" ,numberPlate:"MH-9"},
+                    {color : "Green",modelName :"Tata",numberPlate:"MH-10"}]
+        car.forEach(car => {
+                parkingLotObj.park(car,driver.type.NORMAL,vehicleType.SMALL)            
+        });
+        let vehicleByModeName = parkingLotObj.findVehicleByModelNumber("BMW")
+        assert.equal(vehicleByModeName[0].lot,0)
+        assert.equal(vehicleByModeName[0].slot,0)
     })
-
-   
 
 })
 
