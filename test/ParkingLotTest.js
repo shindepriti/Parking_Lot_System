@@ -222,9 +222,9 @@ describe(`Parking Lot System`,function(){
     //UC15 find last 30 min parked time
     it(`givenVehicles_WhenFindVehicleAccordinglyParkedInLast30Minutes_ShouldReturnVehicleSlotNumber`,()=>{
         let date = new Date()
-        parkedTime = date.setMinutes.getMinutes()-20;
-        let car = [{color : "Red", modelName: "Lambargini" ,numberPlate:"MH-19"},
-                   {color : "Red", modelName: "Lambargini" ,numberPlate:"MH-19",parkedTime},
+        parkedTime = date.getMinutes()-20;
+        let car = [{color : "Red", modelName: "Lambargini" ,numberPlate:"MH-19",parkedTime},
+                   {color : "Red", modelName: "Lambargini" ,numberPlate:"MH-19"},
                    {color : "Blue", modelName: "Toyota" ,numberPlate:"MH-9"},
                     {color : "Green",modelName :"Tata",numberPlate:"MH-10"}]
 
@@ -232,8 +232,8 @@ describe(`Parking Lot System`,function(){
            parkingLotObj.park(car,driver.type.NORMAL,vehicleType.SMALL)
         })
         let vehicleTime = parkingLotObj.findVehicleParkedInLast30Minutes();
-        assert.equal(vehicleTime[1].lot,1)
-        assert.equal(vehicleTime[1].slot,0)
+        assert.equal(vehicleTime[0].lot,0)
+        assert.equal(vehicleTime[0].slot,0)
     })
 
 })

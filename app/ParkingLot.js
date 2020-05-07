@@ -177,6 +177,25 @@ class ParkingLot{
         return vehicleArr;
     }
 
-       
+    findVehicleParkedInLast30Minutes(){
+        this.vehicleArr = []
+        let timeInMinute = new Date().getMinutes()
+        for(let lot=0;lot<this.parkingLots.length;lot++){
+            for(let slot=0;slot<this.parkingLots[lot].length;slot++){
+                if(this.parkingLots[lot][slot] != null){
+                    if(timeInMinute - this.parkingLots[lot][slot].parkedTime <= 30){
+                        let carSlot = {lot:lot,slot:slot}
+                        this.vehicleArr.push(carSlot)
+                    }                    
+                }
+
+            }
+        }
+        return this.vehicleArr;
+    }
+
+   
+
+    
 }
 module.exports =  ParkingLot;
