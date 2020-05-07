@@ -130,7 +130,8 @@ class ParkingLot{
             if(prevLotNum == -1){
                 prevLotNum = lot;
                 prevLotEmptySlots = emptySlots;
-            }else if(prevLotEmptySlots < emptySlots){
+            }
+            else if(prevLotEmptySlots < emptySlots){
                 prevLotNum = lot;
                 prevLotEmptySlots = emptySlots;
             }
@@ -176,6 +177,6 @@ class ParkingLot{
         return vehicleArr;
     }
 
-    
+       
 }
 module.exports =  ParkingLot;

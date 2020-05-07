@@ -13,13 +13,13 @@ class ParkingLotObserver{
     }
 
     getNotificationFull(){
-        this.observerList.map(element => {
+        this.observerList.forEach(element => {
             element.isFull();   
         });
     }
 
     getNotificationEmpty(){
-        this.observerList.map(element => {
+        this.observerList.forEach(element => {
             if(element == parkingLotOwner )
             element.spaceAvailable();
         })

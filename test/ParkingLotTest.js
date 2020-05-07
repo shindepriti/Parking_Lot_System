@@ -163,7 +163,7 @@ describe(`Parking Lot System`,function(){
         })
         parkingLotObj.park(vehicle1,driver.type.HANDICAP,vehicleType.SMALL)
         let result = parkingLotObj.park(vehicle2,driver.type.HANDICAP,vehicleType.SMALL);
-        assert.equal(result,0)
+        assert.equal(result,0);
     });
 
     //UC11 Park Large Vehicle At Highest No Of Free Space
@@ -216,6 +216,24 @@ describe(`Parking Lot System`,function(){
         let vehicleByModeName = parkingLotObj.findVehicleByModelNumber("BMW")
         assert.equal(vehicleByModeName[0].lot,0)
         assert.equal(vehicleByModeName[0].slot,0)
+        
+    })
+
+    //UC15 find last 30 min parked time
+    it(`givenVehicles_WhenFindVehicleAccordinglyParkedInLast30Minutes_ShouldReturnVehicleSlotNumber`,()=>{
+        let date = new Date()
+        parkedTime = date.setMinutes.getMinutes()-20;
+        let car = [{color : "Red", modelName: "Lambargini" ,numberPlate:"MH-19"},
+                   {color : "Red", modelName: "Lambargini" ,numberPlate:"MH-19",parkedTime},
+                   {color : "Blue", modelName: "Toyota" ,numberPlate:"MH-9"},
+                    {color : "Green",modelName :"Tata",numberPlate:"MH-10"}]
+
+        car.forEach(car => {
+           parkingLotObj.park(car,driver.type.NORMAL,vehicleType.SMALL)
+        })
+        let vehicleTime = parkingLotObj.findVehicleParkedInLast30Minutes();
+        assert.equal(vehicleTime[1].lot,1)
+        assert.equal(vehicleTime[1].slot,0)
     })
 
 })
@@ -242,6 +260,7 @@ describe(`Parking Lot Owner Sinon Testing `,function(){
             }) 
         } catch (error) {
             expect(parkingLotOwner.isFull()).to.be.equal(error.message,"Parking Lot Is Full");
+            
         }        
     });
 
