@@ -21,8 +21,8 @@ describe(`Parking Lot System`,function(){
     
     //UC1-Test case to check car is park
     it(`givenVehicle_whenPark_shouldReturnTrue`,()=>{
-        let vehicle = {};
-        let park = parkingLotObj.park(vehicle,driver.type.NORMAL,vehicleType.SMALL);
+        let vehicle = {driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL};
+        let park = parkingLotObj.park(vehicle);
         assert.equal(park,0);
     })
 
@@ -44,17 +44,17 @@ describe(`Parking Lot System`,function(){
     
      //UC2-Test case To check Car is Unpark
      it(`givenVehicle_whenUnParked_shouldReturnTrue`,()=>{
-        let vehicle = {};
-        parkingLotObj.park(vehicle,driver.type.NORMAL,vehicleType.SMALL);
+        let vehicle = {driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL};
+        parkingLotObj.park(vehicle);
         let unPark = parkingLotObj.unPark(vehicle);
         assert.isTrue(unPark);
     })
 
     it(`givenVehicle_WhenAllReadyUnparked_ShouldThrowException`,()=>{
         try {
-             let vehicle = {};
-             let vehicle2 = {};
-             parkingLotObj.park(vehicle,driver.type.NORMAL,vehicleType.SMALL);
+             let vehicle = {driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL};
+             let vehicle2 = {driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL};
+             parkingLotObj.park(vehicle);
              parkingLotObj.unPark(vehicle2);
              parkingLotObj.unPark(vehicle2);
         } catch (error) {
@@ -64,8 +64,8 @@ describe(`Parking Lot System`,function(){
 
     it(`givenVehicle_WhenNullUnPark_ShouldThrowException`,()=>{
         try {
-            let vehicle = {};
-            parkingLotObj.park(vehicle,driver.type.NORMAL,vehicleType.SMALL)
+            let vehicle = {driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL};
+            parkingLotObj.park(vehicle)
             parkingLotObj.unPark();  
         } catch (error) {
             assert.equal(error.message,"Vehicle Is Not Null Or Undefined")  
@@ -74,9 +74,11 @@ describe(`Parking Lot System`,function(){
 
     it(`whenparkingLotFull_shouldReturnException`, () => {
         try{
-        let vehicle = [new Object(0), new Object(1), new Object(2), new Object(3), new Object(4), new Object(5), new Object(6), new Object(7), new Object(8),new Object(9)];
+        let vehicle = [{driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},{driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},{driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL}, 
+            {driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL}, {driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL}, {driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL}, 
+            {driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},{driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},{driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},{driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL}];
         vehicle.map(car => {
-            parkingLotObj.park(car,driver.type.NORMAL,vehicleType.SMALL)
+            parkingLotObj.park(car)
         });
         } catch (error) {
         assert.equal(error.message,"Parking Lot Is Full");
@@ -85,10 +87,12 @@ describe(`Parking Lot System`,function(){
 
     //UC6-Parked Vehicle At Particular position
     it(`givenVehicle__whenParkedAtParticularPosition__shouldReturnTrue`, () => {
-        let vehicle = [new Object(0), new Object(1), new Object(2), new Object(3), new Object(4), new Object(5), new Object(6), new Object(7), new Object(8)];
+        let vehicle = [{driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL}, {driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},{driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},{driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL}, 
+            {driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},{driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},{driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},
+            {driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL}];
         vehicle.map(car => {
-            parkingLotObj.park(car,driver.type.NORMAL,vehicleType.SMALL)
-        });
+            parkingLotObj.park(car)
+        })
         parkingLotObj.unPark(vehicle[2]);
         let emptySlots = parkingLotObj.getEmptySlots();
         assert.equal(emptySlots.lot,2)
@@ -97,9 +101,11 @@ describe(`Parking Lot System`,function(){
 
     it(`givenVehicle_whenSlotNotEmpty_shouldReturnException`,() =>{
         try {
-            let vehicle = [new Object(0), new Object(1), new Object(2), new Object(3), new Object(4), new Object(5), new Object(6), new Object(7), new Object(8)];
+            let vehicle = [{driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},{driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},{driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL}, 
+            {driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL}, {driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL}, {driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL}, 
+            {driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},{driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},{driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL}];
             vehicle.map(vehicle => {
-                parkingLotObj.park(vehicle,driver.type.NORMAL,vehicleType.SMALL)
+                parkingLotObj.park(vehicle)
             })
             parkingLotObj.getEmptySlots();
         } catch (error) {
@@ -109,9 +115,10 @@ describe(`Parking Lot System`,function(){
 
     //UC7-Driver Find car
     it(`driver_whenFindVehicle_shouldReturnTrue`, () =>{
-        let vehicle = [[new Object(0)],[new Object(1)],[new Object(2)]];
+        let vehicle = [{driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},
+                        {driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL}];
         vehicle.map( car => {
-            parkingLotObj.park(car,driver.type.NORMAL,vehicleType.SMALL)
+            parkingLotObj.park(car)
         });
         let findCar = parkingLotObj.findMyCar(vehicle[1]);
         assert.equal(findCar.lot,1)
@@ -119,9 +126,9 @@ describe(`Parking Lot System`,function(){
     })
 
     it(`whenDrier_notFindCar_shouldReturnFalse`, () => {
-        let vehicle = [new Object(0),new Object(1),new Object(2)];
+        let vehicle = [{driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},{driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},{driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL}];
         vehicle.map(vehicle => {
-            parkingLotObj.park(vehicle,driver.type.NORMAL,vehicleType.SMALL)
+            parkingLotObj.park(vehicle)
         })
         let findCar = parkingLotObj.findMyCar(vehicle);
         assert.equal(findCar,false)
@@ -129,61 +136,74 @@ describe(`Parking Lot System`,function(){
 
     //UC8- Apply Charges to User
     it(`givenVehicle_whenparkedApplyCharges_shouldReturnTrue` , () =>{
-        let vehicle1 = [new Object(0),new Date()];
-        let result =  parkingLotObj.park(vehicle1,driver.type.NORMAL,vehicleType.SMALL);
+        let vehicle1 = {driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL};
+        let result =  parkingLotObj.park(vehicle1);
         assert.equal(result,0);
     })
 
     //UC9
     it(`givenVehicle_whenParkEvenly_shouldReturnTrue`,() =>{
-        let car = [[new Object(0),new Date()],[new Object(1),new Date()],[new Object(2),new Date()],[new Object(3),new Date()],[new Object(4),new Date()],[new Object(5),new Date()],[new Object(6),new Date()],[new Object(7),new Date()]]
+        let car = [{driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},{driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},
+        {driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},{driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},
+        {driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL}]
         car.map(car => {
-           result =  parkingLotObj.park(car,driver.type.NORMAL,vehicleType.SMALL);
+           result =  parkingLotObj.park(car);
         })
         assert.equal(result,true)
     })
 
     //UC10
     it(`whenDriverIsHandicap_ThenHisCarParksnNearestFreeSpace_shouldRetuReturnLotNumber `, () => {
-        let vehicle1 = new Object();
-        let car = [[new Object(0), new Date()], [new Object(1), new Date()],[new Object(2), new Date()],[new Object(3), new Date()],[new Object(4), new Date()]]
+        let vehicle1 = {driverType:driver.type.HANDICAP, vehicleType: vehicleType.SMALL};
+        let car = [{driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},{driverType:driver.type.NORMAL, vehicleType: vehicleType.SMAL},
+                    {driverType:driver.type.NORMAL, vehicleType: vehicleType.SMAL},{driverType:driver.type.NORMAL, vehicleType: vehicleType.SMAL}]
+                    
         car.map(vehicle => {
-           parkingLotObj.park(vehicle,driver.type.NORMAL,vehicleType.SMALL);
+           parkingLotObj.park(vehicle);
         })
-        let result = parkingLotObj.park(vehicle1,driver.type.HANDICAP,vehicleType.SMALL);
+        let result = parkingLotObj.park(vehicle1);
         assert.equal(result,0)
     });
 
     it(`whenMultipleDriverIsHandicap_ThenHisCarParksnNearestFreeSpace_shouldRetuReturnLotNumber `, () => {
-        let vehicle1 = new Object();
-        let vehicle2 = new Object();
-        let car = [[new Object("Tata"), new Date()], [new Object("Ford"), new Date()]]
+        let vehicle1 = {driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL};
+        let vehicle2 ={driverType:driver.type.HANDICAP, vehicleType: vehicleType.SMALL};
+        let car = [{driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},{driverType:driver.type.NORMAL, vehicleType: vehicleType.SMAL}]
         car.map(vehicle => {
-            parkingLotObj.park(vehicle,driver.type.NORMAL,vehicleType.SMALL);
+            parkingLotObj.park(vehicle);
         })
-        parkingLotObj.park(vehicle1,driver.type.HANDICAP,vehicleType.SMALL)
-        let result = parkingLotObj.park(vehicle2,driver.type.HANDICAP,vehicleType.SMALL);
+        parkingLotObj.park(vehicle1)
+        let result = parkingLotObj.park(vehicle2);
         assert.equal(result,0);
     });
 
     //UC11 Park Large Vehicle At Highest No Of Free Space
     it(`whenLargestCarComes_thenItWillParkInHighestNoOfFreeSpace_shouldReturnLoyNumber `, () => {
-        let car1 = new Object();
-        let car = [[new Object(), new Date()], [new Object(), new Date()], [new Object(), new Date()], [new Object(), new Date()]]
+        let car1 = {driverType:driver.type.NORMAL, vehicleType: vehicleType.LARGE};
+        let car = [{driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL}, 
+                {driverType:driver.type.NORMAL, vehicleType: vehicleType.SMAL}, 
+                {driverType:driver.type.NORMAL, vehicleType: vehicleType.SMAL}, 
+                {driverType:driver.type.NORMAL, vehicleType: vehicleType.SMAL}]
         car.map(car => {
-            parkingLotObj.park(car,driver.type.NORMAL,vehicleType.SMALL);
+            parkingLotObj.park(car);
         })
-        let emptySpace = parkingLotObj.park(car1,driver.type.NORMAL,vehicleType.LARGE);
+        let emptySpace = parkingLotObj.park(car1);
         assert.equal(emptySpace,2)
     });
 
     //UC12 Find Location Of White Cars
     it(`givenVehicleColour_WhenFindVehicleAccordinglyColour_ShouldReturnSlotNumber`, () =>{
-        let car = [{color : "White"}, {color : "White"}, {color :"Red"},{color : "Red"}, {color : "green"},{color:"Blue"}]
+        let car = [{color : "White",driverType:driver.type.NORMAL,vehicleType:vehicleType.SMALL}, 
+                   {color : "White",driverType:driver.type.NORMAL,vehicleType:vehicleType.SMALL},
+                   {color :"Red",driverType:driver.type.NORMAL,vehicleType:vehicleType.SMALL},
+                   {color : "Red",driverType:driver.type.NORMAL,vehicleType:vehicleType.SMALL}]
         car.map(car => {
-            parkingLotObj.park(car,driver.type.NORMAL,vehicleType.SMALL);
+            parkingLotObj.park(car);
         })
-        let vehicleByColor = parkingLotObj.findVehicleByColor("White")
+        let filter = {
+            color: "White"
+        }
+        let vehicleByColor = parkingLotObj.findVehicleByGivenFilter(filter)
         assert.equal(vehicleByColor[0].lot,0)
         assert.equal(vehicleByColor[0].slot,0)
         assert.equal(vehicleByColor[1].lot,1)
@@ -192,48 +212,90 @@ describe(`Parking Lot System`,function(){
 
     //UC13 Find By color Or ModelName 
     it(`givenVehicleModelNumberAndColor_WhenFindVehicleAccordinglyModelNumberAndColor_ShouldReturnSlot`,()=>{
-        let car = [{color : "Blue",modelName : "Toyota",numberPlate:"MH-10"},
-                   {color : "Red", modelName: "BMW" ,numberPlate:"MH-19"},
-                   {color : "Blue", modelName: "Toyota" ,numberPlate:"MH-9"},
-                    {color : "Green",modelName :"Tata",numberPlate:"MH-10"}]
+        let car = [{color : "Blue",modelName : "Toyota",numberPlate:"MH-10",driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},
+                   {color : "Red", modelName: "BMW" ,numberPlate:"MH-19",driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},
+                   {color : "Blue", modelName: "Toyota" ,numberPlate:"MH-9",driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},
+                    {color : "Green",modelName :"Tata",numberPlate:"MH-10",driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL}]
         car.forEach(car => {
-            parkingLotObj.park(car,driver.type.NORMAL,vehicleType.SMALL);
+            parkingLotObj.park(car);
         })
-        let vehicleByColor = parkingLotObj.findVehicleByColor("Blue","Toyota","MH-10")
+        let filter = {
+            color : "Blue",
+            modelName : "Toyota"
+        }
+        let vehicleByColor = parkingLotObj.findVehicleByGivenFilter(filter)
         assert.equal(vehicleByColor[0].lot,0)
         assert.equal(vehicleByColor[0].slot,0)
     }) 
     
     //UC14 find By ModelName
     it(`givenvehicleModelName_whenFindVehicleAccordinglyModeName_shouldReturnLotNumber`,()=>{
-        let car = [{color : "Blue",modelName : "BMW",numberPlate:"MH-10"},
-                   {color : "Red", modelName: "Lambargini" ,numberPlate:"MH-19"},
-                   {color : "Blue", modelName: "Toyota" ,numberPlate:"MH-9"},
-                    {color : "Green",modelName :"Tata",numberPlate:"MH-10"}]
+        let car = [{color : "Blue",modelName : "BMW",numberPlate:"MH-10",driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},
+                   {color : "Red", modelName: "Lambargini" ,numberPlate:"MH-19",driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},
+                   {color : "Blue", modelName: "Toyota" ,numberPlate:"MH-9",driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},
+                    {color : "Green",modelName :"Tata",numberPlate:"MH-10",driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL}]
         car.forEach(car => {
                 parkingLotObj.park(car,driver.type.NORMAL,vehicleType.SMALL)            
         });
-        let vehicleByModeName = parkingLotObj.findVehicleByModelNumber("BMW")
+        let filter = {
+            modelName: "BMW"
+        }
+        let vehicleByModeName = parkingLotObj.findVehicleByGivenFilter(filter)
         assert.equal(vehicleByModeName[0].lot,0)
         assert.equal(vehicleByModeName[0].slot,0)
         
     })
-
+       
     //UC15 find last 30 min parked time
     it(`givenVehicles_WhenFindVehicleAccordinglyParkedInLast30Minutes_ShouldReturnVehicleSlotNumber`,()=>{
         let date = new Date()
         parkedTime = date.getMinutes()-20;
-        let car = [{color : "Red", modelName: "Lambargini" ,numberPlate:"MH-19",parkedTime},
-                   {color : "Red", modelName: "Lambargini" ,numberPlate:"MH-19"},
-                   {color : "Blue", modelName: "Toyota" ,numberPlate:"MH-9"},
-                    {color : "Green",modelName :"Tata",numberPlate:"MH-10"}]
+        let car = [{color : "Red", modelName: "Lambargini" ,numberPlate:"MH-19",driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL,parkedTime},
+                   {color : "Red", modelName: "Lambargini" ,numberPlate:"MH-19",driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},
+                   {color : "Blue", modelName: "Toyota" ,numberPlate:"MH-9",driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},
+                    {color : "Green",modelName :"Tata",numberPlate:"MH-10",driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL}]
 
         car.forEach(car => {
-           parkingLotObj.park(car,driver.type.NORMAL,vehicleType.SMALL)
+           parkingLotObj.park(car)
         })
-        let vehicleTime = parkingLotObj.findVehicleParkedInLast30Minutes();
+        let vehicleTime = parkingLotObj.findVehicleParkedInLastGivenMinutes(30);
         assert.equal(vehicleTime[0].lot,0)
         assert.equal(vehicleTime[0].slot,0)
+    })
+
+    it(`givenVehicles_WhenFindVehicleAccordinglyParkedInLast50Minutes_ShouldReturnVehicleSlotNumber`,()=>{
+        let date = new Date()
+        parkedTime = date.getMinutes()-40;
+        let car = [{color : "Red", modelName: "Lambargini" ,numberPlate:"MH-19",parkedTime,driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},
+                   {color : "Red", modelName: "Lambargini" ,numberPlate:"MH-19",driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},
+                   {color : "Blue", modelName: "Toyota" ,numberPlate:"MH-9",driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},
+                    {color : "Green",modelName :"Tata",numberPlate:"MH-10",driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL}]
+
+        car.forEach(car => {
+           parkingLotObj.park(car)
+        })
+        let vehicleTime = parkingLotObj.findVehicleParkedInLastGivenMinutes(50);
+        assert.equal(vehicleTime[0].lot,0)
+        assert.equal(vehicleTime[0].slot,0)
+    })
+
+    //UC16
+    it(`givenvehicleModelName_whenFindVehicleAccordinglyModeName_shouldReturnLotNumber`,()=>{
+        let car = [{color : "Blue",modelName : "BMW",numberPlate:"MH-10",driverType:driver.type.HANDICAP, vehicleType: vehicleType.SMALL},
+                   {color : "Red", modelName: "Lambargini" ,numberPlate:"MH-19",driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},
+                   {color : "Blue", modelName: "Toyota" ,numberPlate:"MH-9",driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},
+                    {color : "Green",modelName :"Tata",numberPlate:"MH-10",driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL}]
+        car.forEach(car => {
+                parkingLotObj.park(car)            
+        });
+        let filter = {
+            "driverType": driver.type.HANDICAP,
+            "vehicleType": vehicleType.SMALL
+        }
+        let vehicleByModeName = parkingLotObj.findVehicleByGivenFilter(filter);
+        assert.equal(vehicleByModeName[0].lot,0)
+        assert.equal(vehicleByModeName[0].slot,0)
+        
     })
 
 })
@@ -254,9 +316,11 @@ describe(`Parking Lot Owner Sinon Testing `,function(){
     //UC3-Parking Owner Should Know Parking Full Or Not
     it(`givenParkingLotFull_ShouldThrowExceptionNotyifyToOwner`,()=> {
         try {
-            let vehicle =[new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object()]
+            let vehicle =[{driverType:driver.type.NORMAL,vehicleType:vehicleType.SMALL},{driverType:driver.type.NORMAL,vehicleType:vehicleType.SMALL},{driverType:driver.type.NORMAL,vehicleType:vehicleType.SMALL},
+                         {driverType:driver.type.NORMAL,vehicleType:vehicleType.SMALL},{driverType:driver.type.NORMAL,vehicleType:vehicleType.SMALL},{driverType:driver.type.NORMAL,vehicleType:vehicleType.SMALL},
+                         {driverType:driver.type.NORMAL,vehicleType:vehicleType.SMALL},{driverType:driver.type.NORMAL,vehicleType:vehicleType.SMALL},{driverType:driver.type.NORMAL,vehicleType:vehicleType.SMALL}]
             vehicle.map(car => {
-                parkingLotObj.park(car,driver.type.NORMAL,vehicleType.SMALL)
+                parkingLotObj.park(car)
             }) 
         } catch (error) {
             expect(parkingLotOwner.isFull()).to.be.equal(error.message,"Parking Lot Is Full");
@@ -266,9 +330,10 @@ describe(`Parking Lot Owner Sinon Testing `,function(){
 
     //  //UC5-Owner Notify Available Space
     it(`givenParkingLotFull__whenSapceAvailableAgain__notifyOwner` , ()=> {
-        let vehicle =[new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object()]
+        let vehicle =[{driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},{driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},{driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},{driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},
+                     {driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL}, {driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},{driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},{driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},{driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL}]
         vehicle.map(car => {
-            parkingLotObj.park(car,driver.type.NORMAL,vehicleType.SMALL)
+            parkingLotObj.park(car)
         }) 
         expect(parkingLotOwner.spaceAvailable()).to.be.equal("Parking Lot Space Available");
     });
@@ -290,9 +355,11 @@ describe(`Airport Security Sinon Testing `,function(){
     //UC4-Security Notify Parking Full
     it(`givenParkingLotFull_notifyToAirportSecurity_ShouldThrowException`, ()=> {
         try {
-            let vehicle =[new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object()]
+            let vehicle =[{driverType:driver.type.NORMAL,vehicleType:vehicleType.SMALL}, {driverType:driver.type.NORMAL,vehicleType:vehicleType.SMALL}, {driverType:driver.type.NORMAL,vehicleType:vehicleType.SMALL}, 
+                            {driverType:driver.type.NORMAL,vehicleType:vehicleType.SMALL},{driverType:driver.type.NORMAL,vehicleType:vehicleType.SMALL},{driverType:driver.type.NORMAL,vehicleType:vehicleType.SMALL},
+                            {driverType:driver.type.NORMAL,vehicleType:vehicleType.SMALL},{driverType:driver.type.NORMAL,vehicleType:vehicleType.SMALL},{driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL}]
             vehicle.map(car => {
-                parkingLotObj.park(car,driver.type.NORMAL,vehicleType.SMALL)
+                parkingLotObj.park(car)
             })
         } catch (error) {
             expect(airportSecurity.isFull()).to.be.equal(error.message,"Parking Lot Is Full");

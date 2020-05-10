@@ -11,7 +11,7 @@ class ParkingLot{
         this.prevParkedLot = -1;
     }
     
-    park=(vehicle,driverType,vehicleType)=>{
+    park=(vehicle)=>{
         let lotNum;
         if (vehicle == null ||  typeof vehicle != "object" ) {
             throw new Error("Vehicle Is Not Null Or Vehicle Must be Object")
@@ -19,13 +19,13 @@ class ParkingLot{
         if(this.parkingLotFull()){
             throw new Error("Parking Lot Is Full");
         }
-        if(driverType == "Handicap"){
+        if(vehicle.driverType == "Handicap"){
             lotNum = this.findParkigLotForHandicap();
             
-        }else if(vehicleType == "Large"){
+        }else if(vehicle.vehicleType == "Large"){
             lotNum = this.findParkingLotHavingMaxSpace()
             
-        }else if(driverType == "Normal" || vehicleType == "Small"){
+        }else if(vehicle.driverType == "Normal" || vehicle.vehicleType == "Small"){
             lotNum = this.findParkingLotNum();
         }
         for(let lot=0;lot<this.parkingLots[lotNum].length;lot++){
@@ -39,12 +39,13 @@ class ParkingLot{
         return lotNum;
     }
 
+    
     unPark=(vehicle)=>{
         if(vehicle == null || vehicle == undefined){
             throw new Error("Vehicle Is Not Null Or Undefined")
         }
         for(let lot = 0;lot < this.parkingLots.length;lot++){
-            for(let slot = 0;slot < this.parkingLots.length;slot++){
+            for(let slot = 0;slot < this.parkingLots[lot].length;slot++){
                 if(this.parkingLots[lot][slot] == vehicle){
                     this.parkingLots[lot][slot] = null
                     parkingLotObserver.addObject();
@@ -139,35 +140,20 @@ class ParkingLot{
         return prevLotNum;
     }
 
-    findVehicleByColor=(color,modelName,plateNumber)=>{
+    findVehicleByGivenFilter=(filter)=>{
         let vehicleArr = []
+        let filterKeys = Object.keys(filter);
         for(let lot=0;lot<this.parkingLots.length;lot++){
             for(let slot=0;slot<this.parkingLots[lot].length;slot++){
                 if(this.parkingLots[lot][slot] != null){
-                    if(this.parkingLots[lot][slot].color == color){
-                        if(modelName || plateNumber){
-                            if(this.parkingLots[lot][slot].modelName == modelName || 
-                                this.parkingLots[lot][slot].plateNumber === plateNumber){
-                                let carSlot = {lot:lot,slot:slot}
-                                vehicleArr.push(carSlot)
-                            }
-                        }else{
-                            let carSlot = {lot:lot,slot:slot}
-                                vehicleArr.push(carSlot);                            
-                        }         
-                    }
-                }
-            }         
-        }
-        return vehicleArr;          
-    }
-
-    findVehicleByModelNumber=(modelName)=>{
-        let vehicleArr = []
-        for(let lot=0;lot<this.parkingLots.length;lot++){
-            for(let slot=0;slot<this.parkingLots[lot].length;slot++){
-                if(this.parkingLots[lot][slot] != null){
-                    if(this.parkingLots[lot][slot].modelName == modelName){
+                     let isMatching = true;
+                     for(let i = 0; i<filterKeys.length;i++){
+                        if((this.parkingLots[lot][slot])[filterKeys[i]] != filter[filterKeys[i]]){
+                            isMatching = false;
+                            break;
+                         }
+                     }
+                    if(isMatching){
                         let carSlot = {lot:lot,slot:slot}
                         vehicleArr.push(carSlot)
                     }
@@ -177,25 +163,23 @@ class ParkingLot{
         return vehicleArr;
     }
 
-    findVehicleParkedInLast30Minutes(){
+    findVehicleParkedInLastGivenMinutes=(timeInMinute)=>{
         this.vehicleArr = []
-        let timeInMinute = new Date().getMinutes()
-        for(let lot=0;lot<this.parkingLots.length;lot++){
-            for(let slot=0;slot<this.parkingLots[lot].length;slot++){
-                if(this.parkingLots[lot][slot] != null){
-                    if(timeInMinute - this.parkingLots[lot][slot].parkedTime <= 30){
-                        let carSlot = {lot:lot,slot:slot}
-                        this.vehicleArr.push(carSlot)
-                    }                    
+        let currentTimeInMinute = new Date().getMinutes()
+        if(timeInMinute != undefined ){
+            for(let lot=0;lot<this.parkingLots.length;lot++){
+                for(let slot=0;slot<this.parkingLots[lot].length;slot++){
+                    if(this.parkingLots[lot][slot] != null){
+                        if(currentTimeInMinute - this.parkingLots[lot][slot].parkedTime <= timeInMinute){
+                            let carSlot = {lot:lot,slot:slot}
+                            this.vehicleArr.push(carSlot)
+                        }                    
+                    }
                 }
-
             }
         }
         return this.vehicleArr;
-    }
-
-   
-
+    }  
     
 }
-module.exports =  ParkingLot;
+module.exports = ParkingLot;
