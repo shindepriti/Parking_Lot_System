@@ -140,28 +140,35 @@ class ParkingLot{
         return prevLotNum;
     }
 
+    isMatching=(vehicle,filter)=>{
+        let isMatching = true;
+        let filterKeys = Object.keys(filter);
+        for(let i = 0; i<filterKeys.length;i++){
+            if(vehicle[filterKeys[i]] != filter[filterKeys[i]]){
+                isMatching = false;
+                break;
+             }
+        }
+        return isMatching;
+    }
+
     findVehicleByGivenFilter=(filter)=>{
         let vehicleArr = []
-        let filterKeys = Object.keys(filter);
         for(let lot=0;lot<this.parkingLots.length;lot++){
             for(let slot=0;slot<this.parkingLots[lot].length;slot++){
                 if(this.parkingLots[lot][slot] != null){
-                     let isMatching = true;
-                     for(let i = 0; i<filterKeys.length;i++){
-                        if((this.parkingLots[lot][slot])[filterKeys[i]] != filter[filterKeys[i]]){
-                            isMatching = false;
-                            break;
-                         }
-                     }
-                    if(isMatching){
+                    if(this.isMatching(this.parkingLots[lot][slot],filter)){
                         let carSlot = {lot:lot,slot:slot}
                         vehicleArr.push(carSlot)
                     }
+                    
                 }
             }
         }
         return vehicleArr;
     }
+
+    
 
     findVehicleParkedInLastGivenMinutes=(timeInMinute)=>{
         this.vehicleArr = []
@@ -179,7 +186,19 @@ class ParkingLot{
             }
         }
         return this.vehicleArr;
-    }  
+    } 
+
+    getAllVehicles=()=>{
+        let vehicleArr = []
+        for(let lot=0;lot<this.parkingLots.length;lot++){
+            for(let slot=0;slot<this.parkingLots[lot].length;slot++){
+                if(this.parkingLots[lot][slot] != null){
+                    vehicleArr.push(this.parkingLots[lot][slot]);
+                }
+            }
+        }
+        return true;
+    } 
     
 }
 module.exports = ParkingLot;

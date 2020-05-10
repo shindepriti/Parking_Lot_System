@@ -297,6 +297,17 @@ describe(`Parking Lot System`,function(){
         assert.equal(vehicleByModeName[0].slot,0)
         
     })
+    it(`givenParkingLots_WhenFindParkedVehicles_ShouldReturnAllVehicle`,()=>{
+        let vehicle = [{color : "Blue",modelName : "BMW",numberPlate:"MH-10",driverType:driver.type.HANDICAP, vehicleType: vehicleType.SMALL},
+                   {color : "Red", modelName: "Lambargini" ,numberPlate:"MH-19",driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},
+                   {color : "Blue", modelName: "Toyota" ,numberPlate:"MH-9",driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},
+                    {color : "Green",modelName :"Tata",numberPlate:"MH-10",driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL}]
+        vehicle.forEach(car => {
+             parkingLotObj.park(car)            
+        });
+        let allVehicle = parkingLotObj.getAllVehicles();
+        assert.equal(allVehicle,true)
+    });
 
 })
 
