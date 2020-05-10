@@ -280,7 +280,7 @@ describe(`Parking Lot System`,function(){
     })
 
     //UC16
-    it(`givenvehicleModelName_whenFindVehicleAccordinglyModeName_shouldReturnLotNumber`,()=>{
+    it(`givenvehicle_whenFindVehicleAccordinglyVehicleTypeDriverType_shouldReturnLotNumber`,()=>{
         let car = [{color : "Blue",modelName : "BMW",numberPlate:"MH-10",driverType:driver.type.HANDICAP, vehicleType: vehicleType.SMALL},
                    {color : "Red", modelName: "Lambargini" ,numberPlate:"MH-19",driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},
                    {color : "Blue", modelName: "Toyota" ,numberPlate:"MH-9",driverType:driver.type.NORMAL, vehicleType: vehicleType.SMALL},
